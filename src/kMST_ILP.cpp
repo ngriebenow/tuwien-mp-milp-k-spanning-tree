@@ -89,6 +89,9 @@ void kMST_ILP::initCPLEX()
 
 
 
+// ------------ COMMON METHODS -----------------------------------------
+
+
 // Transform undirected edge vector to directed edge vector ({i,j} -> (i,j), (j,i)
 static vector<Instance::Edge> createDirectedEdges(const vector<Instance::Edge> &uEdges)
 {
@@ -305,6 +308,7 @@ void kMST_ILP::modelCommon()
 		edgesInDegrees.endElements();
 		edgesOutDegrees.endElements();
 
+
 	}
 	catch( IloException &e ) {
 		cout << "kMST_ILP::modelCommon: exception " << e << "\n";
@@ -316,14 +320,89 @@ void kMST_ILP::modelCommon()
 	}
 }
 
+
+
+// --------------- SCF METHODS --------------------------------
+
+static IloExprArray createInFlowExprArray(IloEnv env, vector<Instance::Edge> edges,
+										  u_int numEdges, IloIntVarArray f,  Instance& instance)
+{
+	IloExprArray inFlowExpr(env, instance.n_nodes);
+	for (u_int i = 0; i < instance.n_nodes; i++) {
+		inFlowExpr[i] = IloExpr(env);
+	}
+	for (u_int m = 0; m < numEdges; m++) {
+		const u_int j = edges[m].v2;
+		inFlowExpr[j] += f[m];
+	}
+	return inFlowExpr;
+}
+
+
+static IloExprArray createOutFlowExprArray(IloEnv env, vector<Instance::Edge> edges, u_int numEdges,
+										   IloIntVarArray f, Instance& instance)
+{
+	IloExprArray outFlowExpr(env, instance.n_nodes);
+	for (u_int i = 0; i < instance.n_nodes; i++) {
+		outFlowExpr[i] = IloExpr(env);
+	}
+	for (u_int m = 0; m < numEdges; m++) {
+		const u_int i = edges[m].v1;
+		outFlowExpr[i] += f[m];
+	}
+	return outFlowExpr;
+}
+
+/* $f_{ij} \in [0, k]$ variables denote the number of goods on edge (i, j). */
+static IloIntVarArray createVarsF(IloEnv env,vector<Instance::Edge> edges, u_int numEdges)
+{
+	IloIntVarArray f = IloIntVarArray(env, numEdges);
+	for (u_int k = 0; k < numEdges; k++) {
+		const u_int i = edges[k].v1;
+		const u_int j = edges[k].v2;
+		f[k] = IloIntVar(env, 0, k, Tools::indicesToString("f", i, j).c_str());
+	}
+	return f;
+}
+
+
+
+
 void kMST_ILP::modelSCF()
 {
 	try {
+		
 
-		// ++++++++++++++++++++++++++++++++++++++++++
-		// TODO build single commodity flow model
-		// ++++++++++++++++++++++++++++++++++++++++++
+		u_int numEdges = instance.edges.size() * 2;
 
+		// Create f_ij variables to denote flow on edge (i,j)
+		this->f = createVarsF(env, edges, numEdges);
+
+		
+
+		IloExprArray exprInFlow = createInFlowExprArray(env, edges, numEdges, this->f, instance);
+		IloExprArray exprOutFlow = createOutFlowExprArray(env, edges, numEdges, this->f, instance);
+
+		// Selected nodes consume one, unselected no item(s)
+		// Omit artificial root node i=0
+		for (u_int i = 1; i < instance.n_nodes; i++) {
+			model.add(this->z[i] == exprInFlow[i] - exprOutFlow[i]);
+		}
+
+		exprInFlow.endElements();
+		exprOutFlow.endElements();
+
+		// Only selected edges can transport items
+		// Only one single arc outgoing from the artificial root node is selected and transports k items
+		for (u_int k = 0; k < numEdges; k++) {
+			const u_int i = edges[k].v1;
+			const u_int j = edges[k].v2;
+			if (i == 0 || j == 0) {
+				model.add(this->f[k] == this->k * this->x[k]);
+			} else {  
+				model.add(this->f[k] <= (this->k) * this->x[k]);
+			}
+		}
 	}
 	catch( IloException &e ) {
 		cout << "kMST_ILP::modelSCF: exception " << e << "\n";
@@ -338,10 +417,122 @@ void kMST_ILP::modelSCF()
 void kMST_ILP::modelMCF()
 {
 	try {
+		
+		
+		u_int numEdges = instance.edges.size() * 2;
 
-		// ++++++++++++++++++++++++++++++++++++++++++
-		// TODO build multi commodity flow model
-		// ++++++++++++++++++++++++++++++++++++++++++
+		// Create variables f_ij^k to measure flow for commodity k on edge (i,j)
+		for (u_int i = 0; i < instance.n_nodes; i++) {
+			this->fk.push_back(IloBoolVarArray(env, numEdges));
+		}
+		for (u_int k = 0; k < numEdges; k++) {
+			const u_int i = edges[k].v1;
+			const u_int j = edges[k].v2;
+			for (u_int l = 0; l < (u_int) instance.n_nodes; l++) {
+				this->fk[l][k] = IloBoolVar(env, Tools::indicesToString("f", l, i, j).c_str());
+			}
+		}
+
+		// Create commodity k in artificial root node if and only if node l is selected
+		for (u_int c = 1; c < instance.n_nodes; c++) {
+			IloExpr exprOneCommodity(env);		
+			for (u_int m = 0; m < numEdges; m++) {
+				const u_int i = edges[m].v1;
+				const u_int j = edges[m].v2;
+				if (i == 0 && j > 0){
+					exprOneCommodity += this->fk[c][m];	
+				}
+			} 
+			model.add(exprOneCommodity == this->z[c]);
+			exprOneCommodity.end();
+		}
+
+		// Artificial root node creates k commodities
+		IloExpr exprRootNodeKcom(env);		
+		for (u_int c = 0; c < instance.n_nodes; c++){
+			for (u_int m = 0; m < numEdges; m++) {
+				const u_int i = edges[m].v1;
+				const u_int j = edges[m].v2;
+				if (i == 0 && j > 0){
+					exprRootNodeKcom += this->fk[c][m];	
+				}
+			} 
+		}
+		model.add(exprRootNodeKcom == this->k);   
+		exprRootNodeKcom.end();
+
+		// Artificial root node gets no commodities
+		for (u_int m = 0; m < numEdges; m++) {
+			model.add(this->fk[0][m] == 0);
+		}
+
+		// Target nodes receive transmitted commodities
+		for (u_int c = 1; c < (u_int) instance.n_nodes; c++){
+			IloExpr exprComConsumption(env);		
+			for (u_int m = 0; m < numEdges; m++) {
+				const u_int i = edges[m].v1;
+				const u_int j = edges[m].v2;
+				if (i != c && j == c){
+					exprComConsumption += this->fk[c][m];	
+				}
+			} 
+			model.add(exprComConsumption == this->z[c]);
+			exprComConsumption.end();
+		}
+
+		// Target nodes do not forward commodity
+		for (u_int c = 1; c < (u_int) instance.n_nodes; c++){
+			IloExpr exprFixateCommodity(env);		
+			for (u_int m = 0; m < numEdges; m++) {
+				const u_int i = edges[m].v1;
+				const u_int j = edges[m].v2;
+				if (i == c && j != c){
+					exprFixateCommodity += this->fk[c][m];	
+				}
+			} 
+			model.add(exprFixateCommodity == 0);
+			exprFixateCommodity.end();
+		}
+
+		// Create multi-commodity in flow and out flow constraints
+		for (u_int c = 0; c < (u_int) instance.n_nodes; c++){
+			IloExprArray exprInFlow(env, instance.n_nodes);		
+			IloExprArray exprOutFlow(env, instance.n_nodes);		
+			for (u_int m = 0; m < instance.n_nodes; m++){
+				exprInFlow[m] = IloExpr(env);
+				exprOutFlow[m] = IloExpr(env);
+			}
+			for (u_int m = 0; m < numEdges; m++) {
+				const u_int i = edges[m].v1;
+				const u_int j = edges[m].v2;
+				exprOutFlow[i] += this->fk[c][m];	
+				exprInFlow[j] += this->fk[c][m];	
+			} 
+			for (u_int m = 1; m < instance.n_nodes; m++){
+				if (m != c) {
+					model.add(exprInFlow[m] == exprOutFlow[m]);
+				}
+			}
+			exprInFlow.endElements();
+			exprOutFlow.endElements();
+		}
+
+		// Transmit commodities on selected edges only
+		for (u_int c = 0; c < (u_int) instance.n_nodes; c++){
+			for (u_int m = 0; m < numEdges; m++) {
+				model.add(this->fk[c][m] <= this->x[m]);
+			} 
+		}
+
+		// Given a commodity l, then the total flow is <= k if and only if node l is active
+		for (u_int c = 1; c < (u_int) instance.n_nodes; c++){
+			IloExpr exprTotalFlow(env);		
+			for (u_int m = 0; m < numEdges; m++) {
+				exprTotalFlow += this->fk[c][m];	
+			} 
+			model.add(exprTotalFlow <= this->k * this->z[c]);
+			exprTotalFlow.end();
+		}
 
 	}
 	catch( IloException &e ) {
@@ -404,10 +595,11 @@ void kMST_ILP::modelMTZ()
 kMST_ILP::~kMST_ILP()
 {
 	// free CPLEX resources
-//	x.end();
-//	z.end();
-//	if( model_type == "scf" || model_type == "mcf" ) f.end();
-//	else if( model_type == "mtz" ) d.end();
+	x.end();
+	z.end();
+	// || model_type == "mcf"  TODO
+	if( model_type == "scf") f.end();
+	else if( model_type == "mtz" ) d.end();
 	cplex.end();
 	model.end();
 	env.end();

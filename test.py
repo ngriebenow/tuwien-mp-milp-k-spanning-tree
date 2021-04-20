@@ -2,7 +2,7 @@ import re
 import subprocess
 import csv
 
-MODELS = ["mtz"]
+MODELS = ["mcf"]
 APP = "./kmst"
 DATA = "data/"
 

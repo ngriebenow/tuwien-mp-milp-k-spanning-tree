@@ -28,6 +28,8 @@ private:
 	IloIntVarArray f; // flow variables
 	IloIntVarArray d; // node distance variables
 
+	vector<IloIntVarArray> fk;
+
 	IloNumArray values; // to store variable values
 
 	double epsInt, epsOpt;

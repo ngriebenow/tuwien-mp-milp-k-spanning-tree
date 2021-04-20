@@ -1,9 +1,6 @@
-g01.dat	2	mtz	46	0.02	0
-g01.dat	5	mtz	477	0.02	0
-g02.dat	4	mtz	373	0.12	6
-g02.dat	10	mtz	1390	0.09	36
-g03.dat	10	mtz	725	0.2	0
-g03.dat	25	mtz	3074	2.91	2990
-g04.dat	14	mtz	909	0.6	76
-g04.dat	35	mtz	3292	2.38	1064
-g05.dat	20	mtz	1235	2.07	984
+g01.dat	2	mcf	46	0.05	0
+g01.dat	5	mcf	477	0.18	0
+g02.dat	4	mcf	373	1.03	0
+g02.dat	10	mcf	1390	0.68	0
+g03.dat	10	mcf	725	4.33	0
+g03.dat	25	mcf	3074	4.4	0
