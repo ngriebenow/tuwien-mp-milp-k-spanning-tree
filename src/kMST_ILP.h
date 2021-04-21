@@ -28,7 +28,7 @@ private:
 	IloIntVarArray f; // flow variables
 	IloIntVarArray d; // node distance variables
 
-	vector<IloIntVarArray> fk;
+	vector<IloIntVarArray> fk; // custom multi-flow variables
 
 	IloNumArray values; // to store variable values
 

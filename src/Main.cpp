@@ -11,7 +11,7 @@ using namespace std;
 void usage()
 {
 	cout << "USAGE:\t<program> -f filename -m model [-k <nodes to connect>]\n";
-	cout << "EXAMPLE:\t" << "./kmst -f data/g01.dat -m dcc -k 5\n\n";
+	cout << "EXAMPLE:\t" << "./kmst -f data/g01.dat -m mtz -k 5\n\n";
 	exit( 1 );
 } // usage
 
@@ -21,7 +21,7 @@ int main( int argc, char *argv[] )
 	int opt;
 	// default values
 	string file( "data/g01.dat" );
-	string model_type( "dcc" );
+	string model_type( "mtz" );
 	int k = 5;
 	while( (opt = getopt( argc, argv, "f:m:k:" )) != EOF ) {
 		switch( opt ) {

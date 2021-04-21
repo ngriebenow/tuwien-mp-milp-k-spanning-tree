@@ -1,6 +1,7 @@
 import re
 import subprocess
 import csv
+from subprocess import PIPE, run
 
 MODELS = ["mtz", "scf", "mcf"]
 APP = "./kmst"
@@ -20,27 +21,37 @@ INSTANCES = [["g01.dat", 2, 46],    ["g01.dat", 5, 477],
 reg_objective = re.compile("Objective value:\s*(\d+)")
 reg_duration = re.compile("CPU time:\s*(\d+(?:\.\d+)?)")
 reg_bb = re.compile("Branch-and-Bound nodes: (\d+)")
+reg_status = re.compile("CPLEX status:\s*([a-zA-Z]{3})")
+reg_gap = re.compile("(\d+\.\d\d\%)")
 
 with open('out.csv', 'w', newline='') as csvfile:
     result_writer = csv.writer(csvfile, delimiter="\t")
 
     for i in INSTANCES:
         for m in MODELS:
-            output = subprocess.check_output([APP, "-f", DATA + i[0],
-                                                "-m", m, "-k", str(i[1])])
-            output = output.decode('utf-8')
+            command = [APP, "-f", DATA + i[0], "-m", m, "-k", str(i[1])]
+            result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+            output = result.stdout
 
-            match = reg_objective.search(output)
-            if not match:
-                raise Exception("INVALID OUTPUT FOR ", i)
+            status = reg_status.search(output).group(1)
 
-            duration = float(reg_duration.search(output).group(1))
-            bbnodes = int(reg_bb.search(output).group(1))
-            value = int(match.group(1))
-            
-            if value != i[2]:
-                raise Exception(f"ERROR FOR INSTANCE {i[0]}: {i[2]} expected but output is {value}!")
+            if status == "Opt" or status == "Fea":
+                duration = float(reg_duration.search(output).group(1))
+                bbnodes = int(reg_bb.search(output).group(1))
+                value = int(reg_objective.search(output).group(1))
 
-            print(f"{i[0]} solved in \t{duration} s. with \t{m} and \t{bbnodes} bb nodes")
-            
-            result_writer.writerow([i[0], i[1], m, value, duration, bbnodes])
+                try:
+                    gap = reg_gap.findall(output)[-1]
+                except:
+                    gap = "?"
+
+                if status == "Opt":
+                    if value != i[2]:
+                        raise Exception(f"ERROR FOR INSTANCE {i[0]}: {i[2]} expected but output is {value}!")
+                    print(f"{i[0]} \t{m} optimal in \t{duration} s.\t{bbnodes} bb nodes")
+                elif status == "Fea":
+                    print(f"{i[0]} \t{m} feasible in \t{duration} s.\t{bbnodes} bb nodes, \t{gap} gap (opt: {i[2]} val: {value})")
+                result_writer.writerow([i[0], i[1], m, i[2], value, status, duration, bbnodes, gap])
+            elif status == "Unk":
+                print(f"{i[0]} \t{m} unsolvable")
+                result_writer.writerow([i[0], i[1], m, i[2], 0, status, 0, 0, 0])

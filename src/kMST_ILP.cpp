@@ -34,7 +34,7 @@ void kMST_ILP::solve()
 
 		// set parameters
 		cplex.setParam( IloCplex::Param::Threads, 1 ); // only use a single thread
-		cplex.setParam( IloCplex::Param::TimeLimit, 3600 ); // set time limit to 1 hour
+		cplex.setParam( IloCplex::Param::TimeLimit, 1 ); // set time limit to 1 hour //TODO
 		cplex.setParam( IloCplex::Param::WorkMem, 8192 ); // set memory limit to 8 GB
 
 		epsInt = cplex.getParam( IloCplex::Param::MIP::Tolerances::Integrality );
@@ -379,8 +379,6 @@ void kMST_ILP::modelSCF()
 		// Create f_ij variables to denote flow on edge (i,j)
 		this->f = createVarsF(env, edges, numEdges);
 
-		
-
 		IloExprArray exprInFlow = createInFlowExprArray(env, edges, numEdges, this->f, instance);
 		IloExprArray exprOutFlow = createOutFlowExprArray(env, edges, numEdges, this->f, instance);
 
@@ -398,10 +396,10 @@ void kMST_ILP::modelSCF()
 		for (u_int k = 0; k < numEdges; k++) {
 			const u_int i = edges[k].v1;
 			const u_int j = edges[k].v2;
-			if (i == 0 || j == 0) {
-				model.add(this->f[k] == this->k * this->x[k]);
-			} else {  
+			if (i != 0 && j != 0) {
 				model.add(this->f[k] <= (this->k) * this->x[k]);
+			} else if (i == 0) {  
+				model.add(this->f[k] == this->k * this->x[k]);
 			}
 		}
 	}
@@ -440,7 +438,7 @@ void kMST_ILP::modelMCF()
 			for (u_int m = 0; m < numEdges; m++) {
 				const u_int i = edges[m].v1;
 				const u_int j = edges[m].v2;
-				if (i == 0 && j > 0){
+				if (i == 0 && j != 0){
 					exprOneCommodity += this->fk[c][m];	
 				}
 			} 
@@ -450,7 +448,7 @@ void kMST_ILP::modelMCF()
 
 		// Artificial root node creates k commodities
 		IloExpr exprRootNodeKcom(env);		
-		for (u_int c = 0; c < instance.n_nodes; c++){
+		for (u_int c = 1; c < instance.n_nodes; c++){
 			for (u_int m = 0; m < numEdges; m++) {
 				const u_int i = edges[m].v1;
 				const u_int j = edges[m].v2;
@@ -462,7 +460,7 @@ void kMST_ILP::modelMCF()
 		model.add(exprRootNodeKcom == this->k);   
 		exprRootNodeKcom.end();
 
-		// Artificial root node gets no commodities
+		// Artificial root node receives no commodities
 		for (u_int m = 0; m < numEdges; m++) {
 			model.add(this->fk[0][m] == 0);
 		}
@@ -519,9 +517,12 @@ void kMST_ILP::modelMCF()
 		}
 
 		// Transmit commodities on selected edges only
-		for (u_int c = 0; c < (u_int) instance.n_nodes; c++){
+		for (u_int c = 1; c < (u_int) instance.n_nodes; c++){
 			for (u_int m = 0; m < numEdges; m++) {
-				model.add(this->fk[c][m] <= this->x[m]);
+				const u_int j = edges[m].v2;
+				if (j != 0) {
+					model.add(this->fk[c][m] <= this->x[m]);
+				}
 			} 
 		}
 
@@ -554,31 +555,30 @@ void kMST_ILP::modelMTZ()
 		// create d_i variables to store order
 		this->d = IloIntVarArray(env, instance.n_nodes);
 		for (u_int i = 0; i < instance.n_nodes; i++) {
-			this->d[i] = IloIntVar(env, 0, k, Tools::indicesToString("u", i).c_str());
+			this->d[i] = IloIntVar(env, 0, k, Tools::indicesToString("d", i).c_str());
 		}
 
-
+		// Artificial root node has level 0
 		IloExpr exprLevelRootNode(env);
 		exprLevelRootNode += this->d[0];
-		// Artificial root node has level 0
 		model.add(exprLevelRootNode == 0);
 		exprLevelRootNode.end();
 		
 		u_int numEdges = instance.edges.size() * 2;
 
+		// Set hierarchy
 		for (u_int k = 0; k < numEdges; k++) {
 			const u_int i = edges[k].v1;
 			const u_int j = edges[k].v2;
 
 			IloExpr exprHierarchy(env);
 			exprHierarchy = this->d[i] + this->x[k] - this->d[j] - (-this->x[k] + 1) * this->k;
-			// Set hierarchy 
 			model.add(exprHierarchy <= 0);
 			exprHierarchy.end();
 		}
 
+		// Set order of unselected nodes to 0
 		for (u_int i = 0; i < instance.n_nodes; i++) {
-			// Set order of unselected nodes to 0
 			model.add(this->d[i] <= this->z[i] * (int) instance.n_nodes);
 		}	
 
@@ -598,9 +598,11 @@ kMST_ILP::~kMST_ILP()
 	// free CPLEX resources
 	x.end();
 	z.end();
-	// || model_type == "mcf"  TODO
-	if( model_type == "scf") f.end();
-	else if( model_type == "mtz" ) d.end();
+	if (model_type == "mcf") {
+		// TODO
+	}
+	if (model_type == "scf") f.end();
+	else if (model_type == "mtz" ) d.end();
 	cplex.end();
 	model.end();
 	env.end();

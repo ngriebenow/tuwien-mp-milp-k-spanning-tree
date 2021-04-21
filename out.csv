@@ -1,30 +1,44 @@
-g01.dat	2	mtz	46	0.01	0
-g01.dat	2	scf	46	0.01	0
-g01.dat	2	mcf	46	0.03	0
-g01.dat	5	mtz	477	0.02	0
-g01.dat	5	scf	477	0.01	0
-g01.dat	5	mcf	477	0.06	0
-g02.dat	4	mtz	373	0.09	6
-g02.dat	4	scf	373	0.03	0
-g02.dat	4	mcf	373	0.4	0
-g02.dat	10	mtz	1390	0.06	36
-g02.dat	10	scf	1390	0.24	0
-g02.dat	10	mcf	1390	0.28	0
-g03.dat	10	mtz	725	0.11	0
-g03.dat	10	scf	725	0.76	0
-g03.dat	10	mcf	725	1.9	0
-g03.dat	25	mtz	3074	1.71	2990
-g03.dat	25	scf	3074	2.04	1285
-g03.dat	25	mcf	3074	2.06	0
-g04.dat	14	mtz	909	0.32	76
-g04.dat	14	scf	909	1.15	114
-g04.dat	14	mcf	909	8.89	0
-g04.dat	35	mtz	3292	1.24	1064
-g04.dat	35	scf	3292	3.16	513
-g04.dat	35	mcf	3292	6.38	0
-g05.dat	20	mtz	1235	1.17	984
-g05.dat	20	scf	1235	2.75	1529
-g05.dat	20	mcf	1235	19.98	0
-g05.dat	50	mtz	4898	3.21	2017
-g05.dat	50	scf	4898	3.24	502
-g05.dat	50	mcf	4898	14.44	0
+g01.dat	2	mtz	46	46	Opt	0.0	0	0.00%
+g01.dat	2	scf	46	46	Opt	0.0	0	0.00%
+g01.dat	2	mcf	46	46	Opt	0.02	0	0.00%
+g01.dat	5	mtz	477	477	Opt	0.02	0	0.00%
+g01.dat	5	scf	477	477	Opt	0.02	0	0.00%
+g01.dat	5	mcf	477	477	Opt	0.06	0	0.00%
+g02.dat	4	mtz	373	373	Opt	0.05	6	6.57%
+g02.dat	4	scf	373	373	Opt	0.02	0	15.10%
+g02.dat	4	mcf	373	373	Opt	0.25	0	0.00%
+g02.dat	10	mtz	1390	1390	Opt	0.04	36	6.70%
+g02.dat	10	scf	1390	1390	Opt	0.14	0	0.00%
+g02.dat	10	mcf	1390	1390	Opt	0.19	0	0.00%
+g03.dat	10	mtz	725	725	Opt	0.09	0	0.00%
+g03.dat	10	scf	725	725	Opt	0.74	0	0.00%
+g03.dat	10	mcf	725	3613	Fea	1.05	0	?
+g03.dat	25	mtz	3074	3074	Fea	0.99	1889	2.65%
+g03.dat	25	scf	3074	3143	Fea	0.99	687	19.84%
+g03.dat	25	mcf	3074	11625	Fea	1.04	0	?
+g04.dat	14	mtz	909	909	Opt	0.26	76	3.50%
+g04.dat	14	scf	909	917	Fea	0.95	85	18.70%
+g04.dat	14	mcf	909	0	Unk	0	0	0
+g04.dat	35	mtz	3292	3292	Opt	0.83	1064	1.18%
+g04.dat	35	scf	3292	3347	Fea	0.96	110	17.53%
+g04.dat	35	mcf	3292	0	Unk	0	0	0
+g05.dat	20	mtz	1235	1235	Fea	0.95	943	2.19%
+g05.dat	20	scf	1235	1238	Fea	0.97	64	14.12%
+g05.dat	20	mcf	1235	0	Unk	0	0	0
+g05.dat	50	mtz	4898	4898	Fea	0.99	952	3.58%
+g05.dat	50	scf	4898	6060	Fea	0.99	93	37.33%
+g05.dat	50	mcf	4898	0	Unk	0	0	0
+g06.dat	40	mtz	2068	4680	Fea	0.99	225	59.47%
+g06.dat	40	scf	2068	0	Unk	0	0	0
+g06.dat	40	mcf	2068	0	Unk	0	0	0
+g06.dat	100	mtz	6705	17051	Fea	0.99	300	61.77%
+g06.dat	100	scf	6705	0	Unk	0	0	0
+g06.dat	100	mcf	6705	0	Unk	0	0	0
+g07.dat	60	mtz	1335	0	Unk	0	0	0
+g07.dat	60	scf	1335	30941	Fea	1.07	0	98.70%
+g07.dat	60	mcf	1335	0	Unk	0	0	0
+g07.dat	150	mtz	4534	0	Unk	0	0	0
+g07.dat	150	scf	4534	0	Unk	0	0	0
+g07.dat	150	mcf	4534	0	Unk	0	0	0
+g08.dat	80	mtz	1620	0	Unk	0	0	0
+g08.dat	80	scf	1620	0	Unk	0	0	0
