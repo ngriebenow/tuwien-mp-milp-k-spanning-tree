@@ -1,3 +1,6 @@
 kmst
 obj/
 log/
+
+out.csv
+model.lp
