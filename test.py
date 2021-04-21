@@ -2,10 +2,13 @@ import re
 import subprocess
 import csv
 from subprocess import PIPE, run
+from pathlib import Path
 
 MODELS = ["mtz", "scf", "mcf"]
 APP = "./kmst"
 DATA = "data/"
+LOG = "log/"
+Path(LOG).mkdir(parents=True, exist_ok=True)
 
 INSTANCES = [["g01.dat", 2, 46],    ["g01.dat", 5, 477],
              ["g02.dat", 4, 373],   ["g02.dat", 10, 1390],
@@ -33,7 +36,14 @@ with open('out.csv', 'w', newline='') as csvfile:
             result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
             output = result.stdout
 
-            status = reg_status.search(output).group(1)
+            with open(f"{i[0]}-{i[1]}-{m}.txt", "w") as log_file:
+                log_file.write(LOG + output)
+
+            try:
+                status = reg_status.search(output).group(1)
+            except:
+                print(output)
+                raise Exception("ERROR could not check status!")
 
             if status == "Opt" or status == "Fea":
                 duration = float(reg_duration.search(output).group(1))

@@ -8,6 +8,16 @@ kMST_ILP::kMST_ILP( Instance &_instance, string _model_type, int _k ) :
 
 vector<Instance::Edge> edges;
 
+static void print(IloCplex &cplex, const IloIntVarArray *array)
+{
+	for (u_int i = 1; i < array->getSize(); i++) {
+		const int value = cplex.getValue((*array)[i]);
+		if (value != 0) {
+			cout << (*array)[i] << " = " << value << "\n";
+		}
+	}
+}
+
 void kMST_ILP::solve()
 {
 	try {
@@ -50,12 +60,24 @@ void kMST_ILP::solve()
 
 		// solve model
 		cout << "Calling CPLEX solve ...\n";
-		cplex.solve();
+		bool result = cplex.solve();
+
+		if (result) {
+			cout << "SOLUTION:\n\n";
+			print(cplex, &(this->x));
+			print(cplex, &(this->z));
+			cout << "\n\n";
+		}
+
+	
 		cout << "CPLEX finished.\n\n";
 		cout << "CPLEX status: " << cplex.getStatus() << "\n";
 		cout << "Branch-and-Bound nodes: " << cplex.getNnodes() << "\n";
 		cout << "Objective value: " << cplex.getObjValue() << "\n";
 		cout << "CPU time: " << Tools::CPUtime() << "\n\n";
+
+
+		
 
 	}
 	catch( IloException &e ) {
@@ -599,7 +621,9 @@ kMST_ILP::~kMST_ILP()
 	x.end();
 	z.end();
 	if (model_type == "mcf") {
-		// TODO
+		for (u_int i = 0; i < instance.n_nodes; i++) {
+			this->fk[i].end();
+		}
 	}
 	if (model_type == "scf") f.end();
 	else if (model_type == "mtz" ) d.end();
