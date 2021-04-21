@@ -6,6 +6,8 @@ EXEC = ./kmst -f data/g01.dat -m scf -k 5
 
 DEBUG = 0
 
+# STEP 2:	CHANGE THE VERSION AND CPLEX_DIR HERE
+# 			The CPLEX_DIR variable should be the folder that contains the folders concert, cplex, cpoptimizer, ...
 CPLEX_VERSION = CPLEX_Studio1210
 CPLEX_DIR = /opt/ibm/ILOG/${CPLEX_VERSION}
 
