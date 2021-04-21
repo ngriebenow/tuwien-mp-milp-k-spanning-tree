@@ -2,7 +2,7 @@ import re
 import subprocess
 import csv
 
-MODELS = ["mcf"]
+MODELS = ["mtz", "scf", "mcf"]
 APP = "./kmst"
 DATA = "data/"
 
@@ -24,8 +24,8 @@ reg_bb = re.compile("Branch-and-Bound nodes: (\d+)")
 with open('out.csv', 'w', newline='') as csvfile:
     result_writer = csv.writer(csvfile, delimiter="\t")
 
-    for m in MODELS:
-        for i in INSTANCES:
+    for i in INSTANCES:
+        for m in MODELS:
             output = subprocess.check_output([APP, "-f", DATA + i[0],
                                                 "-m", m, "-k", str(i[1])])
             output = output.decode('utf-8')

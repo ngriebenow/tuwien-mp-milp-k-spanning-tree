@@ -6,7 +6,6 @@ kMST_ILP::kMST_ILP( Instance &_instance, string _model_type, int _k ) :
 	if( k == 0 ) k = instance.n_nodes;
 }
 
-// TODO
 vector<Instance::Edge> edges;
 
 void kMST_ILP::solve()
@@ -89,8 +88,7 @@ void kMST_ILP::initCPLEX()
 
 
 
-// ------------ COMMON METHODS -----------------------------------------
-
+// ------------ COMMON HELPER METHODS ----------------
 
 // Transform undirected edge vector to directed edge vector ({i,j} -> (i,j), (j,i)
 static vector<Instance::Edge> createDirectedEdges(const vector<Instance::Edge> &uEdges)
@@ -134,11 +132,13 @@ static IloBoolVarArray createVarsX(IloEnv env, vector<Instance::Edge> edges, u_i
 }
 
 // Create variables z_i to denote whether node i is part of the MST
-static IloBoolVarArray createVarsV(IloEnv env, u_int num_nodes)
+// We also include z_0 for the artificial root node for simpler indexing, 
+// but do not consider them in any variables.
+static IloBoolVarArray createVarsZ(IloEnv env, u_int num_nodes)
 {
 	IloBoolVarArray vVarArray = IloBoolVarArray(env, num_nodes);
 	for (u_int i = 0; i < num_nodes; i++) {
-		vVarArray[i] = IloBoolVar(env, Tools::indicesToString("v", i).c_str());
+		vVarArray[i] = IloBoolVar(env, Tools::indicesToString("z", i).c_str());
 	}
 	return vVarArray;
 }
@@ -163,7 +163,7 @@ static void createConstraint_selectedEdgeCount_equals_kMinus1(IloEnv env, IloMod
 	for (u_int m = 0; m < numEdges; m++) {
 		const u_int i = edges[m].v1;
 		const u_int j = edges[m].v2;
-		if (i > 0 && j > 0) {
+		if (i != 0 && j != 0) {
 			exprNumEdges += x[m];
 		}
 	}
@@ -205,18 +205,8 @@ static void createConstraint_rootNodeHasNoIncomingEdge(IloEnv env, IloModel mode
 static void createConstraint_boundOutgoingEdges(IloModel model, IloBoolVarArray z,
 												IloExprArray& exprOutDegree, Instance& instance, int k)
 {
-	for (u_int i = 0; i < instance.n_nodes; i++) {
+	for (u_int i = 1; i < instance.n_nodes; i++) {
 		model.add(z[i] * (k - 1) >= exprOutDegree[i]);
-	}
-}
-
-static void createConstraint_selectedNodeHasOutDegree_atLeastOne(IloModel model, IloBoolVarArray z,
-																 IloExprArray& exprInDegree,
-																 IloExprArray& exprOutDegree,
-																 Instance& instance)
-{
-	for (u_int i = 0; i < instance.n_nodes; i++) {
-		model.add(z[i] <= exprOutDegree[i] + exprInDegree[i]); 
 	}
 }
 
@@ -229,6 +219,17 @@ static void createConstraint_selectedNodehasInDegreeOne_unselectedNone(IloModel 
 {
 	for (u_int i = 1; i < instance.n_nodes; i++) {
 		model.add(exprInDegree[i] == z[i]);
+	}
+}
+
+// Each node that is selected has at least one in incoming selected edge or one outgoing selected edge
+static void createConstraint_selectedNodeHasOutAndInDegree_atLeastOne(IloModel model, IloBoolVarArray z,
+																 IloExprArray& exprInDegree,
+																 IloExprArray& exprOutDegree,
+																 Instance& instance)
+{
+	for (u_int i = 1; i < instance.n_nodes; i++) {
+		model.add(z[i] <= exprOutDegree[i] + exprInDegree[i]); 
 	}
 }
 
@@ -275,8 +276,8 @@ void kMST_ILP::modelCommon()
 		// create x_ij variables
 		this->x = createVarsX(env, edges, numEdges);
 
-		// create v_i variables
-		this->z = createVarsV(env, instance.n_nodes);
+		// create z_i variables
+		this->z = createVarsZ(env, instance.n_nodes);
 
 		// objective function
 		createObjectiveFunction(env, model, this->x, edges, numEdges);
@@ -296,8 +297,8 @@ void kMST_ILP::modelCommon()
 		// Unselected nodes have no outgoing selected edges, selected ones at most (k-1)
 		createConstraint_boundOutgoingEdges(model, this->z, edgesOutDegrees, instance, this->k);
 
-		// Selected nodes have at least one selected edge
-		createConstraint_selectedNodeHasOutDegree_atLeastOne(model, this->z, edgesInDegrees, edgesOutDegrees, instance);
+		// Selected nodes have at least one selected edge, either inDegree or outDegree
+		createConstraint_selectedNodeHasOutAndInDegree_atLeastOne(model, this->z, edgesInDegrees, edgesOutDegrees, instance);
 		
 		// Selected nodes except for artificial root node have one, 
 		// unselected ones have no incoming edge(s) selected
@@ -466,7 +467,7 @@ void kMST_ILP::modelMCF()
 			model.add(this->fk[0][m] == 0);
 		}
 
-		// Target nodes receive transmitted commodities
+		// Target nodes receive transmitted commodities and do not forward them anymore
 		for (u_int c = 1; c < (u_int) instance.n_nodes; c++){
 			IloExpr exprComConsumption(env);		
 			for (u_int m = 0; m < numEdges; m++) {
