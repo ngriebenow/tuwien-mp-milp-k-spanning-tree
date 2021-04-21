@@ -36,7 +36,7 @@ with open('out.csv', 'w', newline='') as csvfile:
             result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
             output = result.stdout
 
-            with open(f"{i[0]}-{i[1]}-{m}.txt", "w") as log_file:
+            with open(f"{LOG}{i[0]}-{i[1]}-{m}.txt", "w") as log_file:
                 log_file.write(LOG + output)
 
             try:
