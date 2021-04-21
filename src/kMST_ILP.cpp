@@ -44,7 +44,7 @@ void kMST_ILP::solve()
 
 		// set parameters
 		cplex.setParam( IloCplex::Param::Threads, 1 ); // only use a single thread
-		cplex.setParam( IloCplex::Param::TimeLimit, 1 ); // set time limit to 1 hour //TODO
+		cplex.setParam( IloCplex::Param::TimeLimit, 3600 ); // set time limit to 1 hour //TODO
 		cplex.setParam( IloCplex::Param::WorkMem, 8192 ); // set memory limit to 8 GB
 
 		epsInt = cplex.getParam( IloCplex::Param::MIP::Tolerances::Integrality );
