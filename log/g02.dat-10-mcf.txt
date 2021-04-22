@@ -1,0 +1,76 @@
+log/Reading instance from file data/g02.dat
+Number of nodes: 21
+Number of edges: 65
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+MIP Presolve eliminated 281 rows and 260 columns.
+MIP Presolve modified 587 coefficients.
+Reduced MIP has 2594 rows, 2620 columns, and 11740 nonzeros.
+Reduced MIP has 2620 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (10.11 ticks)
+Found incumbent of value 3401.000000 after 0.03 sec. (22.94 ticks)
+Probing changed sense of 66 constraints.
+Probing time = 0.07 sec. (68.04 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 130 rows and 110 columns.
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 2464 rows, 2510 columns, and 11370 nonzeros.
+Reduced MIP has 2510 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (11.75 ticks)
+Probing time = 0.00 sec. (3.92 ticks)
+Clique table members: 8000.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.02 sec. (26.41 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                         3401.0000        0.0000           100.00%
+*     0     0      integral     0     1390.0000     1390.0000      904    0.00%
+Elapsed time = 0.14 sec. (140.16 ticks, tree = 0.00 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.14 sec. (140.27 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) =    0.14 sec. (140.27 ticks)
+SOLUTION:
+
+x(0,7)[0..1]  = 1
+x(1,3)[0..1]  = 1
+x(1,6)[0..1]  = 1
+x(5,17)[0..1]  = 1
+x(7,11)[0..1]  = 1
+x(7,13)[0..1]  = 1
+x(13,18)[0..1]  = 1
+x(17,19)[0..1]  = 1
+x(19,1)[0..1]  = 1
+x(7,5)[0..1]  = 1
+z(1)[0..1]  = 1
+z(3)[0..1]  = 1
+z(5)[0..1]  = 1
+z(6)[0..1]  = 1
+z(7)[0..1]  = 1
+z(11)[0..1]  = 1
+z(13)[0..1]  = 1
+z(17)[0..1]  = 1
+z(18)[0..1]  = 1
+z(19)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 0
+Objective value: 1390
+CPU time: 0.14
+

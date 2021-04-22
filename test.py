@@ -19,7 +19,7 @@ INSTANCES = [["g01.dat", 2, 46],    ["g01.dat", 5, 477],
              ["g07.dat", 60, 1335], ["g07.dat", 150, 4534],
              ["g08.dat", 80, 1620], ["g08.dat", 200, 5787],
              ["g09.dat", 200, 2289], ["g09.dat", 500, 7595],
-             ["g10.dat", 400, 4182], ["g10.dat", 1000, 14991]]
+             ["g10.dat", 400, 4182], ["g10.dat", 1000, 14991]][-3:]
 
 reg_objective = re.compile("Objective value:\s*(\d+)")
 reg_duration = re.compile("CPU time:\s*(\d+(?:\.\d+)?)")
@@ -37,13 +37,14 @@ with open('out.csv', 'w', newline='') as csvfile:
             output = result.stdout
 
             with open(f"{LOG}{i[0]}-{i[1]}-{m}.txt", "w") as log_file:
-                log_file.write(LOG + output)
+                log_file.write(output)
 
             try:
                 status = reg_status.search(output).group(1)
             except:
                 print(output)
-                raise Exception("ERROR could not check status!")
+                status = "Unk"
+                print("WARN could not check status!")
 
             if status == "Opt" or status == "Fea":
                 duration = float(reg_duration.search(output).group(1))

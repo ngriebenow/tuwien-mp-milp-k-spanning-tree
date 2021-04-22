@@ -1,0 +1,142 @@
+log/Reading instance from file data/g04.dat
+Number of nodes: 71
+Number of edges: 260
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 2 times.
+MIP Presolve eliminated 86 rows and 99 columns.
+MIP Presolve modified 644 coefficients.
+Aggregator did 58 substitutions.
+Reduced MIP has 590 rows, 953 columns, and 3170 nonzeros.
+Reduced MIP has 505 binaries, 448 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (4.09 ticks)
+Found incumbent of value 5999.000000 after 0.02 sec. (11.74 ticks)
+Probing fixed 1 vars, tightened 82 bounds.
+Probing time = 0.00 sec. (2.22 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 1 rows and 1 columns.
+Reduced MIP has 589 rows, 952 columns, and 3166 nonzeros.
+Reduced MIP has 504 binaries, 448 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (1.99 ticks)
+Probing time = 0.00 sec. (1.53 ticks)
+Cover probing fixed 0 vars, tightened 69 bounds.
+Clique table members: 449.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.00 sec. (4.05 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                         5999.0000        0.0000           100.00%
+      0     0      256.7758    29     5999.0000      256.7758      194   95.72%
+      0     0      337.0117    29     5999.0000      Cuts: 63      405   94.38%
+      0     0      420.8470    29     5999.0000      Cuts: 34      492   92.98%
+      0     0      496.4212    29     5999.0000      Cuts: 31      535   91.72%
+      0     0      504.3080    29     5999.0000      Cuts: 21      592   91.59%
+      0     0      518.6973    29     5999.0000      Cuts: 16      680   91.35%
+Detecting symmetries...
+      0     0      530.3635    29     5999.0000      Cuts: 16      754   91.16%
+      0     0      535.0715    29     5999.0000      Cuts: 24      811   91.08%
+      0     0      549.8518    29     5999.0000      Cuts: 16      864   90.83%
+      0     0      589.3355    29     5999.0000      Cuts: 17      923   90.18%
+      0     0      600.5041    29     5999.0000      Cuts: 21      974   89.99%
+      0     0      608.8575    29     5999.0000      Cuts: 14     1025   89.85%
+      0     0      610.5106    29     5999.0000      Cuts: 26     1054   89.82%
+      0     0      617.9230    29     5999.0000      Cuts: 33     1100   89.70%
+      0     0      629.7053    29     5999.0000      Cuts: 27     1172   89.50%
+      0     0      635.2086    29     5999.0000      Cuts: 33     1218   89.41%
+      0     0      647.2605    29     5999.0000      Cuts: 10     1245   89.21%
+      0     0      651.8768    29     5999.0000      Cuts: 13     1329   89.13%
+      0     0      653.6108    29     5999.0000      Cuts: 24     1389   89.10%
+      0     0      656.7399    29     5999.0000      Cuts: 16     1456   89.05%
+      0     0      661.5866    29     5999.0000      Cuts: 17     1585   88.97%
+      0     0      674.1889    29     5999.0000      Cuts: 23     1711   88.76%
+      0     0      682.1506    29     5999.0000      Cuts: 21     1768   88.63%
+      0     0      684.3946    29     5999.0000      Cuts: 28     1832   88.59%
+      0     0      690.1556    29     5999.0000      Cuts: 17     1911   88.50%
+      0     0      693.5511    29     5999.0000      Cuts: 17     1952   88.44%
+      0     0      704.4951    29     5999.0000      Cuts: 11     1986   88.26%
+      0     0      711.4950    29     5999.0000      Cuts: 12     2091   88.14%
+      0     0      721.9541    29     5999.0000      Cuts: 13     2170   87.97%
+      0     0      723.3101    29     5999.0000      Cuts: 26     2209   87.94%
+      0     0      725.9659    29     5999.0000      Cuts: 11     2247   87.90%
+      0     0      727.5535    29     5999.0000      Cuts: 12     2275   87.87%
+      0     0      730.5362    29     5999.0000      Cuts: 17     2302   87.82%
+      0     0      732.0508    29     5999.0000      Cuts: 17     2323   87.80%
+      0     0      732.0848    29     5999.0000       Cuts: 5     2327   87.80%
+      0     0      733.5110    29     5999.0000   ZeroHalf: 2     2344   87.77%
+      0     0      734.0367    29     5999.0000       Cuts: 7     2352   87.76%
+      0     0      734.1040    29     5999.0000       Cuts: 6     2355   87.76%
+*     0+    0                         2906.0000      734.1040            74.74%
+*     0+    0                         2840.0000      734.1040            74.15%
+*     0+    0                         1871.0000      734.1040            60.76%
+      0     0  -1.00000e+75     0     1871.0000      734.1040     2355   60.76%
+Detecting symmetries...
+      0     2      734.1040    90     1871.0000      734.1040     2355   60.76%
+Elapsed time = 0.54 sec. (535.14 ticks, tree = 0.01 MB, solutions = 4)
+*    39    35      integral     0     1050.0000      734.9171     5274   30.01%
+*    47    35      integral     0      917.0000      738.8623     6151   19.43%
+     65    39      794.4222    62      917.0000      745.5235     7148   18.70%
+*    98    47      integral     0      909.0000      794.5070     8455   12.60%
+    232    40      900.2143    12      909.0000      838.0000    11793    7.81%
+
+GUB cover cuts applied:  1
+Clique cuts applied:  1
+Cover cuts applied:  13
+Implied bound cuts applied:  15
+Flow cuts applied:  34
+Mixed integer rounding cuts applied:  17
+Zero-half cuts applied:  28
+Lift and project cuts applied:  3
+Gomory fractional cuts applied:  2
+
+Root node processing (before b&c):
+  Real time             =    0.54 sec. (535.18 ticks)
+Sequential b&c:
+  Real time             =    0.44 sec. (555.12 ticks)
+                          ------------
+Total (root+branch&cut) =    0.98 sec. (1090.29 ticks)
+SOLUTION:
+
+x(0,66)[0..1]  = 1
+x(1,6)[0..1]  = 1
+x(2,13)[0..1]  = 1
+x(15,16)[0..1]  = 1
+x(57,64)[0..1]  = 1
+x(58,65)[0..1]  = 1
+x(57,1)[0..1]  = 1
+x(58,2)[0..1]  = 1
+x(65,15)[0..1]  = 1
+x(48,38)[0..1]  = 1
+x(68,48)[0..1]  = 1
+x(66,57)[0..1]  = 1
+x(66,58)[0..1]  = 1
+z(1)[0..1]  = 1
+z(2)[0..1]  = 1
+z(6)[0..1]  = 1
+z(13)[0..1]  = 1
+z(15)[0..1]  = 1
+z(16)[0..1]  = 1
+z(38)[0..1]  = 1
+z(48)[0..1]  = 1
+z(57)[0..1]  = 1
+z(58)[0..1]  = 1
+z(64)[0..1]  = 1
+z(65)[0..1]  = 1
+z(66)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 303
+Objective value: 909
+CPU time: 0.98
+

@@ -1,0 +1,75 @@
+log/Reading instance from file data/g01.dat
+Number of nodes: 11
+Number of edges: 32
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 2 times.
+MIP Presolve eliminated 537 rows and 526 columns.
+MIP Presolve modified 250 coefficients.
+Aggregator did 46 substitutions.
+Reduced MIP has 196 rows, 206 columns, and 834 nonzeros.
+Reduced MIP has 206 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.55 ticks)
+Found incumbent of value 778.000000 after 0.01 sec. (3.56 ticks)
+Probing fixed 44 vars, tightened 0 bounds.
+Probing changed sense of 64 constraints.
+Probing time = 0.01 sec. (3.98 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 162 rows and 142 columns.
+MIP Presolve modified 64 coefficients.
+Reduced MIP has 33 rows, 64 columns, and 280 nonzeros.
+Reduced MIP has 64 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.53 ticks)
+Probing changed sense of 10 constraints.
+Probing time = 0.00 sec. (0.39 ticks)
+Tried aggregator 2 times.
+MIP Presolve eliminated 11 rows and 22 columns.
+Aggregator did 10 substitutions.
+Reduced MIP has 12 rows, 32 columns, and 86 nonzeros.
+Reduced MIP has 32 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.24 ticks)
+Probing time = 0.00 sec. (0.08 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 12 rows, 32 columns, and 86 nonzeros.
+Reduced MIP has 32 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.06 ticks)
+Probing time = 0.00 sec. (0.08 ticks)
+Clique table members: 99.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.00 sec. (0.02 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          778.0000        0.0000           100.00%
+*     0     0      integral     0       46.0000       46.0000        0    0.00%
+Elapsed time = 0.02 sec. (9.40 ticks, tree = 0.00 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.02 sec. (9.43 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) =    0.02 sec. (9.43 ticks)
+SOLUTION:
+
+x(0,6)[0..1]  = 1
+x(6,7)[0..1]  = 1
+z(6)[0..1]  = 1
+z(7)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 0
+Objective value: 46
+CPU time: 0.02
+

@@ -1,0 +1,173 @@
+log/Reading instance from file data/g07.dat
+Number of nodes: 301
+Number of edges: 3300
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+Presolve has eliminated 13501 rows and 13200 columns...
+MIP Presolve eliminated 13501 rows and 13200 columns.
+MIP Presolve modified 97500 coefficients.
+Reduced MIP has 1975204 rows, 1980300 columns, and 9619800 nonzeros.
+Reduced MIP has 1980300 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 123.41 sec. (21855.48 ticks)
+Probing time = 4.21 sec. (524.04 ticks)
+Tried aggregator 1 time.
+Presolve has eliminated 0 rows and 0 columns...
+Detecting symmetries...
+Reduced MIP has 1975204 rows, 1980300 columns, and 9619800 nonzeros.
+Reduced MIP has 1980300 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 116.31 sec. (20756.36 ticks)
+Probing time = 3.12 sec. (484.00 ticks)
+Clique table members: 6739251.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 420.74 sec. (198146.62 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0     0      integral     0     1335.0000     1335.0000   189301    0.00%
+Elapsed time = 800.22 sec. (270867.72 ticks, tree = 0.00 MB, solutions = 1)
+
+Root node processing (before b&c):
+  Real time             =  800.35 sec. (270976.77 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) =  800.35 sec. (270976.77 ticks)
+SOLUTION:
+
+x(0,44)[0..1]  = 1
+x(5,210)[0..1]  = 1
+x(10,86)[0..1]  = 1
+x(22,65)[0..1]  = 1
+x(33,172)[0..1]  = 1
+x(44,260)[0..1]  = 1
+x(44,254)[0..1]  = 1
+x(61,276)[0..1]  = 1
+x(65,264)[0..1]  = 1
+x(72,103)[0..1]  = 1
+x(74,87)[0..1]  = 1
+x(83,287)[0..1]  = 1
+x(84,158)[0..1]  = 1
+x(86,268)[0..1]  = 1
+x(91,135)[0..1]  = 1
+x(103,183)[0..1]  = 1
+x(103,111)[0..1]  = 1
+x(130,270)[0..1]  = 1
+x(135,217)[0..1]  = 1
+x(147,234)[0..1]  = 1
+x(158,195)[0..1]  = 1
+x(171,189)[0..1]  = 1
+x(171,225)[0..1]  = 1
+x(183,299)[0..1]  = 1
+x(210,229)[0..1]  = 1
+x(225,263)[0..1]  = 1
+x(225,269)[0..1]  = 1
+x(44,5)[0..1]  = 1
+x(44,10)[0..1]  = 1
+x(105,22)[0..1]  = 1
+x(171,23)[0..1]  = 1
+x(33,29)[0..1]  = 1
+x(229,33)[0..1]  = 1
+x(249,49)[0..1]  = 1
+x(264,61)[0..1]  = 1
+x(276,62)[0..1]  = 1
+x(268,72)[0..1]  = 1
+x(203,73)[0..1]  = 1
+x(136,74)[0..1]  = 1
+x(210,76)[0..1]  = 1
+x(147,83)[0..1]  = 1
+x(210,84)[0..1]  = 1
+x(147,91)[0..1]  = 1
+x(203,102)[0..1]  = 1
+x(291,105)[0..1]  = 1
+x(177,130)[0..1]  = 1
+x(287,136)[0..1]  = 1
+x(210,140)[0..1]  = 1
+x(263,147)[0..1]  = 1
+x(254,149)[0..1]  = 1
+x(291,164)[0..1]  = 1
+x(217,168)[0..1]  = 1
+x(260,171)[0..1]  = 1
+x(263,177)[0..1]  = 1
+x(287,198)[0..1]  = 1
+x(270,203)[0..1]  = 1
+x(225,207)[0..1]  = 1
+x(217,212)[0..1]  = 1
+x(299,249)[0..1]  = 1
+x(299,291)[0..1]  = 1
+z(5)[0..1]  = 1
+z(10)[0..1]  = 1
+z(22)[0..1]  = 1
+z(23)[0..1]  = 1
+z(29)[0..1]  = 1
+z(33)[0..1]  = 1
+z(44)[0..1]  = 1
+z(49)[0..1]  = 1
+z(61)[0..1]  = 1
+z(62)[0..1]  = 1
+z(65)[0..1]  = 1
+z(72)[0..1]  = 1
+z(73)[0..1]  = 1
+z(74)[0..1]  = 1
+z(76)[0..1]  = 1
+z(83)[0..1]  = 1
+z(84)[0..1]  = 1
+z(86)[0..1]  = 1
+z(87)[0..1]  = 1
+z(91)[0..1]  = 1
+z(102)[0..1]  = 1
+z(103)[0..1]  = 1
+z(105)[0..1]  = 1
+z(111)[0..1]  = 1
+z(130)[0..1]  = 1
+z(135)[0..1]  = 1
+z(136)[0..1]  = 1
+z(140)[0..1]  = 1
+z(147)[0..1]  = 1
+z(149)[0..1]  = 1
+z(158)[0..1]  = 1
+z(164)[0..1]  = 1
+z(168)[0..1]  = 1
+z(171)[0..1]  = 1
+z(172)[0..1]  = 1
+z(177)[0..1]  = 1
+z(183)[0..1]  = 1
+z(189)[0..1]  = 1
+z(195)[0..1]  = 1
+z(198)[0..1]  = 1
+z(203)[0..1]  = 1
+z(207)[0..1]  = 1
+z(210)[0..1]  = 1
+z(212)[0..1]  = 1
+z(217)[0..1]  = 1
+z(225)[0..1]  = 1
+z(229)[0..1]  = 1
+z(234)[0..1]  = 1
+z(249)[0..1]  = 1
+z(254)[0..1]  = 1
+z(260)[0..1]  = 1
+z(263)[0..1]  = 1
+z(264)[0..1]  = 1
+z(268)[0..1]  = 1
+z(269)[0..1]  = 1
+z(270)[0..1]  = 1
+z(276)[0..1]  = 1
+z(287)[0..1]  = 1
+z(291)[0..1]  = 1
+z(299)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 0
+Objective value: 1335
+CPU time: 803.54
+

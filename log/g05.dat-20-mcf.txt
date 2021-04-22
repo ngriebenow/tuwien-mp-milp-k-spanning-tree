@@ -1,0 +1,104 @@
+log/Reading instance from file data/g05.dat
+Number of nodes: 101
+Number of edges: 400
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+MIP Presolve eliminated 1701 rows and 1600 columns.
+MIP Presolve modified 11100 coefficients.
+Reduced MIP has 79804 rows, 80100 columns, and 369400 nonzeros.
+Reduced MIP has 80100 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.53 sec. (467.75 ticks)
+Found incumbent of value 11666.000000 after 1.82 sec. (1492.53 ticks)
+Probing time = 3.30 sec. (2855.50 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 800 rows and 700 columns.
+MIP Presolve modified 100 coefficients.
+Reduced MIP has 79004 rows, 79400 columns, and 367100 nonzeros.
+Reduced MIP has 79400 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.60 sec. (536.03 ticks)
+Probing time = 0.07 sec. (32.03 ticks)
+Clique table members: 257701.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.88 sec. (726.50 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                        11666.0000        0.0000           100.00%
+      0     0     1230.0000    68    11666.0000     1230.0000     6214   89.46%
+*     0+    0                         1252.0000     1230.0000             1.76%
+      0     0     1230.0000    68     1252.0000       Cuts: 5     6294    1.76%
+      0     0     1234.6667    68     1252.0000       Cuts: 5     6369    1.38%
+*     0+    0                         1238.0000     1234.6667             0.27%
+*     0+    0                         1235.0000     1234.6667             0.03%
+      0     0  -1.00000e+75     0     1235.0000     1234.6667     6369    0.03%
+      0     0        cutoff           1235.0000     1234.6667     6369    0.03%
+Elapsed time = 8.95 sec. (8413.48 ticks, tree = 0.01 MB, solutions = 4)
+
+Gomory fractional cuts applied:  2
+
+Root node processing (before b&c):
+  Real time             =    8.95 sec. (8419.48 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) =    8.95 sec. (8419.48 ticks)
+SOLUTION:
+
+x(0,93)[0..1]  = 1
+x(6,14)[0..1]  = 1
+x(31,44)[0..1]  = 1
+x(52,61)[0..1]  = 1
+x(64,94)[0..1]  = 1
+x(70,88)[0..1]  = 1
+x(88,90)[0..1]  = 1
+x(93,96)[0..1]  = 1
+x(96,97)[0..1]  = 1
+x(96,99)[0..1]  = 1
+x(32,6)[0..1]  = 1
+x(16,15)[0..1]  = 1
+x(94,16)[0..1]  = 1
+x(97,27)[0..1]  = 1
+x(96,31)[0..1]  = 1
+x(61,32)[0..1]  = 1
+x(96,48)[0..1]  = 1
+x(93,52)[0..1]  = 1
+x(97,64)[0..1]  = 1
+x(97,70)[0..1]  = 1
+z(6)[0..1]  = 1
+z(14)[0..1]  = 1
+z(15)[0..1]  = 1
+z(16)[0..1]  = 1
+z(27)[0..1]  = 1
+z(31)[0..1]  = 1
+z(32)[0..1]  = 1
+z(44)[0..1]  = 1
+z(48)[0..1]  = 1
+z(52)[0..1]  = 1
+z(61)[0..1]  = 1
+z(64)[0..1]  = 1
+z(70)[0..1]  = 1
+z(88)[0..1]  = 1
+z(90)[0..1]  = 1
+z(93)[0..1]  = 1
+z(94)[0..1]  = 1
+z(96)[0..1]  = 1
+z(97)[0..1]  = 1
+z(99)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 0
+Objective value: 1235
+CPU time: 9.13
+

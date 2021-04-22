@@ -1,0 +1,173 @@
+log/Reading instance from file data/g04.dat
+Number of nodes: 71
+Number of edges: 260
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+MIP Presolve eliminated 1111 rows and 1040 columns.
+MIP Presolve modified 5630 coefficients.
+Reduced MIP has 36304 rows, 36470 columns, and 166960 nonzeros.
+Reduced MIP has 36470 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.18 sec. (182.42 ticks)
+Found incumbent of value 4814.000000 after 0.80 sec. (690.77 ticks)
+Probing time = 1.16 sec. (1207.78 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 520 rows and 450 columns.
+MIP Presolve modified 70 coefficients.
+Reduced MIP has 35784 rows, 36020 columns, and 165470 nonzeros.
+Reduced MIP has 36020 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.20 sec. (205.09 ticks)
+Probing time = 0.03 sec. (18.32 ticks)
+Clique table members: 116165.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.68 sec. (797.38 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                         4814.0000        0.0000           100.00%
+      0     0      874.3750   142     4814.0000      874.3750     4965   81.84%
+*     0+    0                         1715.0000      874.3750            49.02%
+      0     0      886.6000   142     1715.0000      Fract: 1     5286   48.30%
+*     0+    0                          986.0000      886.6000            10.08%
+*     0+    0                          975.0000      886.6000             9.07%
+*     0+    0                          909.0000      886.6000             2.46%
+Detecting symmetries...
+
+Repeating presolve.
+Tried aggregator 2 times.
+MIP Presolve eliminated 32524 rows and 32846 columns.
+MIP Presolve modified 27 coefficients.
+Aggregator did 8 substitutions.
+Reduced MIP has 3252 rows, 3166 columns, and 13609 nonzeros.
+Reduced MIP has 3166 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (36.21 ticks)
+Probing fixed 81 vars, tightened 0 bounds.
+Probing time = 0.16 sec. (156.63 ticks)
+Tried aggregator 2 times.
+MIP Presolve eliminated 92 rows and 99 columns.
+MIP Presolve modified 5 coefficients.
+Aggregator did 5 substitutions.
+Reduced MIP has 3155 rows, 3062 columns, and 13176 nonzeros.
+Reduced MIP has 3062 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (17.69 ticks)
+Probing time = 0.01 sec. (5.35 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 3155 rows, 3062 columns, and 13176 nonzeros.
+Reduced MIP has 3062 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (10.64 ticks)
+Represolve time = 0.25 sec. (262.90 ticks)
+Probing time = 0.01 sec. (5.35 ticks)
+Clique table members: 18190.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.03 sec. (32.87 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          909.0000      886.6000             2.46%
+      0     0      886.6000   156      909.0000      886.6000     6438    2.46%
+      0     0      886.6000   156      909.0000      Fract: 1     6461    2.46%
+      0     0      890.6883   156      909.0000      Fract: 1     7078    2.01%
+Detecting symmetries...
+
+Repeating presolve.
+Tried aggregator 2 times.
+MIP Presolve eliminated 873 rows and 877 columns.
+MIP Presolve modified 169 coefficients.
+Aggregator did 51 substitutions.
+Reduced MIP has 2231 rows, 2134 columns, and 9118 nonzeros.
+Reduced MIP has 2134 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (13.33 ticks)
+Probing fixed 95 vars, tightened 0 bounds.
+Probing changed sense of 7 constraints.
+Probing time = 0.19 sec. (169.24 ticks)
+Tried aggregator 3 times.
+MIP Presolve eliminated 162 rows and 163 columns.
+MIP Presolve modified 38 coefficients.
+Aggregator did 31 substitutions.
+Reduced MIP has 2038 rows, 1940 columns, and 8359 nonzeros.
+Reduced MIP has 1940 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (17.49 ticks)
+Probing time = 0.01 sec. (5.09 ticks)
+Tried aggregator 2 times.
+Detecting symmetries...
+MIP Presolve eliminated 14 rows and 7 columns.
+Aggregator did 10 substitutions.
+Reduced MIP has 2014 rows, 1923 columns, and 8293 nonzeros.
+Reduced MIP has 1923 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (8.71 ticks)
+Represolve time = 0.25 sec. (244.02 ticks)
+Probing time = 0.01 sec. (5.20 ticks)
+Clique table members: 14856.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.03 sec. (41.53 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          909.0000      890.6883             2.01%
+      0     0      891.0976   229      909.0000      891.0976     8595    1.97%
+Detecting symmetries...
+      0     2      892.1429    98      909.0000      892.1429     8683    1.85%
+Elapsed time = 5.05 sec. (5298.40 ticks, tree = 0.01 MB, solutions = 5)
+
+Gomory fractional cuts applied:  2
+
+Root node processing (before b&c):
+  Real time             =    5.05 sec. (5299.58 ticks)
+Sequential b&c:
+  Real time             =    0.05 sec. (64.92 ticks)
+                          ------------
+Total (root+branch&cut) =    5.10 sec. (5364.50 ticks)
+SOLUTION:
+
+x(0,66)[0..1]  = 1
+x(1,6)[0..1]  = 1
+x(2,13)[0..1]  = 1
+x(15,16)[0..1]  = 1
+x(57,64)[0..1]  = 1
+x(58,65)[0..1]  = 1
+x(64,68)[0..1]  = 1
+x(57,1)[0..1]  = 1
+x(58,2)[0..1]  = 1
+x(65,15)[0..1]  = 1
+x(48,38)[0..1]  = 1
+x(68,48)[0..1]  = 1
+x(66,57)[0..1]  = 1
+x(66,58)[0..1]  = 1
+z(1)[0..1]  = 1
+z(2)[0..1]  = 1
+z(6)[0..1]  = 1
+z(13)[0..1]  = 1
+z(15)[0..1]  = 1
+z(16)[0..1]  = 1
+z(38)[0..1]  = 1
+z(48)[0..1]  = 1
+z(57)[0..1]  = 1
+z(58)[0..1]  = 1
+z(64)[0..1]  = 1
+z(65)[0..1]  = 1
+z(66)[0..1]  = 1
+z(68)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 47
+Objective value: 909
+CPU time: 5.19
+

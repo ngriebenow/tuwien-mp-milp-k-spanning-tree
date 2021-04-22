@@ -1,0 +1,205 @@
+log/Reading instance from file data/g05.dat
+Number of nodes: 101
+Number of edges: 400
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+MIP Presolve eliminated 203 rows and 102 columns.
+MIP Presolve modified 1200 coefficients.
+Reduced MIP has 1003 rows, 900 columns, and 4500 nonzeros.
+Reduced MIP has 800 binaries, 100 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (3.64 ticks)
+Probing time = 0.00 sec. (2.38 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 1003 rows, 900 columns, and 4500 nonzeros.
+Reduced MIP has 800 binaries, 100 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (3.07 ticks)
+Probing time = 0.01 sec. (2.43 ticks)
+Clique table members: 1001.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.00 sec. (4.05 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0     2374.6275    56                   2374.6275      299         
+      0     0     3212.8235    56                   Cuts: 112      525         
+      0     0     3902.2360    56                    Cuts: 98      625         
+      0     0     4248.8571    56                    Cuts: 75      695         
+      0     0     4377.4760    56                    Cuts: 63      733         
+      0     0     4534.5784    56                    Cuts: 34      779         
+Detecting symmetries...
+      0     0     4595.1850    56                    Cuts: 35      814         
+      0     0     4628.8137    56                    Cuts: 21      827         
+      0     0     4637.5000    56                    Cuts: 12      839         
+      0     0     4662.0000    56                    Cuts: 19      861         
+      0     0     4678.5000    56                    Cuts: 26      878         
+      0     0     4680.0000    56                    Cuts: 19      890         
+      0     0     4680.0000    56                    Cuts: 12      898         
+      0     0     4680.0000    56                    Cuts: 10      902         
+*     0+    0                        19913.0000     4680.0000            76.50%
+*     0+    0                        16712.0000     4680.0000            72.00%
+      0     0  -1.00000e+75     0    16712.0000     4680.0000      902   72.00%
+Detecting symmetries...
+      0     2     4680.0000    10    16712.0000     4680.0000      902   72.00%
+Elapsed time = 0.18 sec. (136.14 ticks, tree = 0.01 MB, solutions = 2)
+*    80    74      integral     0     7089.0000     4680.4902     1903   33.98%
+*   118   103      integral     0     5401.0000     4681.6340     2345   13.32%
+*   120   103      integral     0     5376.0000     4681.6340     2354   12.92%
+*   137   100      integral     0     5253.0000     4685.8627     2469   10.80%
+*   190+   97                         4974.0000     4689.4902             5.72%
+*   198    95      integral     0     4949.0000     4689.4902     3084    5.24%
+*   221    82      integral     0     4898.0000     4689.6078     3277    4.25%
+    320   161     4806.3922    32     4898.0000     4698.1863     4393    4.08%
+    650   347     4874.6471    19     4898.0000     4714.7059     7727    3.74%
+
+Performing restart 1
+
+Repeating presolve.
+Tried aggregator 2 times.
+MIP Presolve eliminated 422 rows and 397 columns.
+MIP Presolve modified 199 coefficients.
+Aggregator did 33 substitutions.
+Reduced MIP has 548 rows, 470 columns, and 1995 nonzeros.
+Reduced MIP has 389 binaries, 81 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (3.16 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 548 rows, 470 columns, and 1995 nonzeros.
+Reduced MIP has 389 binaries, 81 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (1.37 ticks)
+Represolve time = 0.01 sec. (7.68 ticks)
+    944     0     4680.0000    25     4898.0000      Cuts: 13    11379    3.58%
+    944     0     4680.0000    25     4898.0000      Cuts: 12    11381    3.58%
+    944     0     4680.0000    25     4898.0000      Cuts: 12    11383    3.58%
+    944     0     4680.0000    25     4898.0000      Cuts: 11    11385    3.58%
+    944     0     4680.0000    25     4898.0000      Cuts: 16    11387    3.58%
+    944     2     4680.0000    46     4898.0000     4722.4309    11387    3.58%
+   1050    50     4718.6341    50     4898.0000     4722.4309    12422    3.58%
+   1255   120     4773.8431     6     4898.0000     4773.7843    14359    2.54%
+   1500   155     4809.4314    66     4898.0000     4803.0980    16701    1.94%
+   1754   125        cutoff           4898.0000     4838.4020    19569    1.22%
+
+Clique cuts applied:  71
+Cover cuts applied:  20
+Implied bound cuts applied:  13
+Flow cuts applied:  1
+Mixed integer rounding cuts applied:  4
+Zero-half cuts applied:  8
+Gomory fractional cuts applied:  10
+
+Root node processing (before b&c):
+  Real time             =    0.18 sec. (136.18 ticks)
+Sequential b&c:
+  Real time             =    1.67 sec. (1931.22 ticks)
+                          ------------
+Total (root+branch&cut) =    1.85 sec. (2067.40 ticks)
+SOLUTION:
+
+x(0,93)[0..1]  = 1
+x(6,14)[0..1]  = 1
+x(12,23)[0..1]  = 1
+x(12,69)[0..1]  = 1
+x(14,25)[0..1]  = 1
+x(17,35)[0..1]  = 1
+x(26,41)[0..1]  = 1
+x(27,86)[0..1]  = 1
+x(31,44)[0..1]  = 1
+x(36,57)[0..1]  = 1
+x(36,92)[0..1]  = 1
+x(46,66)[0..1]  = 1
+x(48,91)[0..1]  = 1
+x(52,61)[0..1]  = 1
+x(56,62)[0..1]  = 1
+x(64,94)[0..1]  = 1
+x(66,71)[0..1]  = 1
+x(70,88)[0..1]  = 1
+x(76,84)[0..1]  = 1
+x(76,89)[0..1]  = 1
+x(88,90)[0..1]  = 1
+x(91,98)[0..1]  = 1
+x(93,96)[0..1]  = 1
+x(96,97)[0..1]  = 1
+x(96,99)[0..1]  = 1
+x(56,2)[0..1]  = 1
+x(32,6)[0..1]  = 1
+x(66,9)[0..1]  = 1
+x(79,12)[0..1]  = 1
+x(16,15)[0..1]  = 1
+x(94,16)[0..1]  = 1
+x(27,17)[0..1]  = 1
+x(61,26)[0..1]  = 1
+x(97,27)[0..1]  = 1
+x(36,28)[0..1]  = 1
+x(38,30)[0..1]  = 1
+x(96,31)[0..1]  = 1
+x(61,32)[0..1]  = 1
+x(86,36)[0..1]  = 1
+x(56,46)[0..1]  = 1
+x(96,48)[0..1]  = 1
+x(93,52)[0..1]  = 1
+x(84,56)[0..1]  = 1
+x(97,64)[0..1]  = 1
+x(97,70)[0..1]  = 1
+x(88,76)[0..1]  = 1
+x(99,79)[0..1]  = 1
+z(2)[0..1]  = 1
+z(6)[0..1]  = 1
+z(9)[0..1]  = 1
+z(12)[0..1]  = 1
+z(14)[0..1]  = 1
+z(15)[0..1]  = 1
+z(16)[0..1]  = 1
+z(23)[0..1]  = 1
+z(25)[0..1]  = 1
+z(26)[0..1]  = 1
+z(27)[0..1]  = 1
+z(28)[0..1]  = 1
+z(30)[0..1]  = 1
+z(31)[0..1]  = 1
+z(32)[0..1]  = 1
+z(35)[0..1]  = 1
+z(36)[0..1]  = 1
+z(41)[0..1]  = 1
+z(44)[0..1]  = 1
+z(46)[0..1]  = 1
+z(48)[0..1]  = 1
+z(52)[0..1]  = 1
+z(56)[0..1]  = 1
+z(57)[0..1]  = 1
+z(61)[0..1]  = 1
+z(62)[0..1]  = 1
+z(64)[0..1]  = 1
+z(66)[0..1]  = 1
+z(69)[0..1]  = 1
+z(70)[0..1]  = 1
+z(71)[0..1]  = 1
+z(76)[0..1]  = 1
+z(79)[0..1]  = 1
+z(84)[0..1]  = 1
+z(86)[0..1]  = 1
+z(88)[0..1]  = 1
+z(89)[0..1]  = 1
+z(90)[0..1]  = 1
+z(92)[0..1]  = 1
+z(93)[0..1]  = 1
+z(94)[0..1]  = 1
+z(96)[0..1]  = 1
+z(97)[0..1]  = 1
+z(98)[0..1]  = 1
+z(99)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 2017
+Objective value: 4898
+CPU time: 1.84
+

@@ -1,0 +1,119 @@
+log/Reading instance from file data/g04.dat
+Number of nodes: 71
+Number of edges: 260
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+MIP Presolve eliminated 143 rows and 72 columns.
+MIP Presolve modified 800 coefficients.
+Reduced MIP has 663 rows, 590 columns, and 2910 nonzeros.
+Reduced MIP has 520 binaries, 70 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.12 ticks)
+Probing time = 0.00 sec. (1.35 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 663 rows, 590 columns, and 2910 nonzeros.
+Reduced MIP has 520 binaries, 70 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (1.84 ticks)
+Probing time = 0.00 sec. (1.40 ticks)
+Clique table members: 780.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.00 sec. (1.92 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0      225.8000    38                    225.8000      134         
+      0     0      370.5969    38                    Cuts: 55      198         
+      0     0      553.5461    38                    Cuts: 69      243         
+      0     0      593.4683    38                    Cuts: 38      269         
+      0     0      634.7080    38                    Cuts: 22      306         
+      0     0      665.7054    38                    Cuts: 51      333         
+Detecting symmetries...
+      0     0      688.5067    38                    Cuts: 21      349         
+      0     0      733.0000    38                    Cuts: 36      372         
+      0     0      734.2222    38                    Cuts: 25      388         
+      0     0      763.4182    38                    Cuts: 20      416         
+      0     0      782.2949    38                    Cuts: 39      428         
+      0     0      785.7027    38                    Cuts: 18      441         
+      0     0      811.8056    38                    Cuts: 40      460         
+      0     0      841.6085    38                    Cuts: 30      501         
+      0     0      846.7879    38                    Cuts: 45      525         
+      0     0      857.2877    38                    Cuts: 26      545         
+      0     0      859.4091    38                    Cuts: 27      564         
+      0     0      862.0000    38                    Cuts: 35      585         
+      0     0      864.9688    38                    Cuts: 27      594         
+      0     0      870.0000    38                    Cuts: 33      621         
+      0     0      871.7500    38                    Cuts: 24      630         
+      0     0      871.7500    38                    Cuts: 27      640         
+      0     0      871.7500    38                 ZeroHalf: 3      641         
+*     0+    0                         4525.0000      871.7500            80.73%
+*     0+    0                         1777.0000      871.7500            50.94%
+*     0+    0                         1573.0000      871.7500            44.58%
+*     0+    0                         1533.0000      871.7500            43.13%
+      0     0  -1.00000e+75     0     1533.0000      871.7500      641   43.13%
+Detecting symmetries...
+      0     2      871.7500    46     1533.0000      871.7500      641   43.13%
+Elapsed time = 0.15 sec. (136.32 ticks, tree = 0.01 MB, solutions = 4)
+*    10+   10                         1149.0000      874.3750            23.90%
+*    12     8      integral     0      937.0000      874.3750      823    6.68%
+*    21    10      integral     0      909.0000      877.1765      916    3.50%
+
+Clique cuts applied:  62
+Cover cuts applied:  13
+Implied bound cuts applied:  99
+Mixed integer rounding cuts applied:  14
+Zero-half cuts applied:  23
+Gomory fractional cuts applied:  2
+
+Root node processing (before b&c):
+  Real time             =    0.15 sec. (136.33 ticks)
+Sequential b&c:
+  Real time             =    0.03 sec. (46.08 ticks)
+                          ------------
+Total (root+branch&cut) =    0.19 sec. (182.42 ticks)
+SOLUTION:
+
+x(0,64)[0..1]  = 1
+x(1,6)[0..1]  = 1
+x(2,13)[0..1]  = 1
+x(15,16)[0..1]  = 1
+x(57,66)[0..1]  = 1
+x(58,65)[0..1]  = 1
+x(64,68)[0..1]  = 1
+x(57,1)[0..1]  = 1
+x(58,2)[0..1]  = 1
+x(65,15)[0..1]  = 1
+x(48,38)[0..1]  = 1
+x(68,48)[0..1]  = 1
+x(64,57)[0..1]  = 1
+x(66,58)[0..1]  = 1
+z(1)[0..1]  = 1
+z(2)[0..1]  = 1
+z(6)[0..1]  = 1
+z(13)[0..1]  = 1
+z(15)[0..1]  = 1
+z(16)[0..1]  = 1
+z(38)[0..1]  = 1
+z(48)[0..1]  = 1
+z(57)[0..1]  = 1
+z(58)[0..1]  = 1
+z(64)[0..1]  = 1
+z(65)[0..1]  = 1
+z(66)[0..1]  = 1
+z(68)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 76
+Objective value: 909
+CPU time: 0.19
+

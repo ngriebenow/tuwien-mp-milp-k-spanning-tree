@@ -1,0 +1,59 @@
+log/Reading instance from file data/g01.dat
+Number of nodes: 11
+Number of edges: 32
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+MIP Presolve eliminated 23 rows and 12 columns.
+MIP Presolve modified 104 coefficients.
+Reduced MIP has 87 rows, 74 columns, and 398 nonzeros.
+Reduced MIP has 64 binaries, 10 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.39 ticks)
+Found incumbent of value 893.000000 after 0.00 sec. (0.80 ticks)
+Probing time = 0.00 sec. (0.52 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 87 rows, 74 columns, and 398 nonzeros.
+Reduced MIP has 64 binaries, 10 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.29 ticks)
+Probing time = 0.00 sec. (0.51 ticks)
+Clique table members: 243.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.00 sec. (0.14 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          893.0000        0.0000           100.00%
+      0     0       46.0000     6      893.0000       46.0000       16   94.85%
+*     0+    0                           46.0000       46.0000             0.00%
+      0     0        cutoff             46.0000       46.0000       16    0.00%
+Elapsed time = 0.01 sec. (2.79 ticks, tree = 0.01 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.01 sec. (2.79 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) =    0.01 sec. (2.79 ticks)
+SOLUTION:
+
+x(0,6)[0..1]  = 1
+x(6,7)[0..1]  = 1
+z(6)[0..1]  = 1
+z(7)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 0
+Objective value: 46
+CPU time: 0
+

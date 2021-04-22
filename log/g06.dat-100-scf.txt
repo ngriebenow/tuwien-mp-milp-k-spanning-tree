@@ -1,0 +1,397 @@
+log/Reading instance from file data/g06.dat
+Number of nodes: 201
+Number of edges: 999
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 2 times.
+MIP Presolve eliminated 301 rows and 400 columns.
+MIP Presolve modified 2298 coefficients.
+Aggregator did 100 substitutions.
+Reduced MIP has 2201 rows, 3696 columns, and 12486 nonzeros.
+Reduced MIP has 1898 binaries, 1798 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (14.95 ticks)
+Probing fixed 0 vars, tightened 261 bounds.
+Probing time = 0.01 sec. (9.63 ticks)
+Cover probing fixed 0 vars, tightened 30 bounds.
+Tried aggregator 1 time.
+Detecting symmetries...
+Reduced MIP has 2201 rows, 3696 columns, and 12486 nonzeros.
+Reduced MIP has 1898 binaries, 1798 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (7.70 ticks)
+Probing time = 0.00 sec. (2.93 ticks)
+Cover probing fixed 0 vars, tightened 157 bounds.
+Clique table members: 1799.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.05 sec. (89.41 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0     3072.0400   130                   3072.0400     1226         
+      0     0     3133.1115   130                   Cuts: 192     1638         
+      0     0     3652.8440   130                   Cuts: 101     2092         
+      0     0     4033.5025   130                   Cuts: 103     2396         
+      0     0     4269.3301   130                    Cuts: 70     2870         
+      0     0     4530.8421   130                    Cuts: 67     3395         
+Detecting symmetries...
+      0     0     4676.1722   130                    Cuts: 74     3685         
+      0     0     4752.1853   130                    Cuts: 36     3863         
+      0     0     4839.8029   130                    Cuts: 28     4208         
+      0     0     4896.5933   130                    Cuts: 42     4485         
+      0     0     4920.8649   130                    Cuts: 52     4728         
+      0     0     4939.8756   130                    Cuts: 37     4952         
+      0     0     4952.3896   130                    Cuts: 36     5190         
+      0     0     4960.5523   130                    Cuts: 30     5315         
+      0     0     4984.6956   130                    Cuts: 27     5543         
+      0     0     4989.8891   130                    Cuts: 23     5636         
+      0     0     5011.1064   130                     Cuts: 9     5843         
+      0     0     5017.2052   130                    Cuts: 19     5925         
+      0     0     5027.5522   130                    Cuts: 20     6070         
+      0     0     5033.3959   130                    Cuts: 24     6140         
+      0     0     5043.1834   130                     Cuts: 9     6294         
+      0     0     5051.9546   130                    Cuts: 19     6376         
+      0     0     5065.3944   130                    Cuts: 22     6484         
+      0     0     5068.3451   130                    Cuts: 13     6543         
+      0     0     5071.9035   130                    Cuts: 14     6584         
+      0     0     5074.6319   130                 Flowcuts: 2     6624         
+      0     0     5074.9729   130                     Cuts: 4     6642         
+      0     0     5075.1713   130                     Cuts: 7     6652         
+Detecting symmetries...
+      0     2     5075.1713   406                   5075.1757     6652         
+Elapsed time = 2.32 sec. (2865.09 ticks, tree = 0.01 MB, solutions = 0)
+      5     7     5088.4087   380                   5084.4055     9331         
+      8    10     5175.5590   372                   5099.9196    13257         
+     10    12     5197.4380   364                   5099.9196    13344         
+     20    22     5470.1423   317                   5099.9196    15312         
+     41    43     5707.1742   238                   5099.9196    17162         
+     66    68     5960.1820   217                   5099.9196    18780         
+     95    97     6186.5518   162                   5099.9196    20318         
+    132   132     8224.9835   109                   5099.9196    21538         
+    220   220     9020.8489    92                   5099.9196    23178         
+*   240+  236                        12178.0000     5099.9196            58.12%
+    325   316     5606.2446   197    12178.0000     5099.9196    29032   58.12%
+Elapsed time = 4.71 sec. (6172.81 ticks, tree = 6.44 MB, solutions = 1)
+    450   441     6356.6835   144    12178.0000     5099.9196    36408   58.12%
+
+Performing restart 1
+
+Repeating presolve.
+Tried aggregator 1 time.
+MIP Presolve modified 2079 coefficients.
+Reduced MIP has 2201 rows, 3696 columns, and 10999 nonzeros.
+Reduced MIP has 1898 binaries, 1798 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.02 sec. (13.64 ticks)
+Tried aggregator 1 time.
+MIP Presolve modified 119 coefficients.
+Reduced MIP has 2200 rows, 3696 columns, and 10888 nonzeros.
+Reduced MIP has 1898 binaries, 1798 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (8.03 ticks)
+Represolve time = 0.05 sec. (39.68 ticks)
+    461     0     5958.4907   404    12178.0000     Cuts: 204    41521   51.07%
+    461     0     6419.7052   404    12178.0000     Cuts: 279    43190   47.28%
+    461     0     6582.5744   404    12178.0000     Cuts: 220    43922   45.95%
+*   461+    0                         6941.0000     6582.5744             5.16%
+*   461+    0                         6927.0000     6582.5744             4.97%
+*   461+    0                         6849.0000     6582.5744             3.89%
+*   461+    0                         6847.0000     6582.5744             3.86%
+*   461+    0                         6838.0000     6582.5744             3.74%
+*   461+    0                         6824.0000     6582.5744             3.54%
+    461     0  -1.00000e+75     0     6824.0000     6582.5744    43922    3.54%
+    461     0     6635.9660   404     6824.0000     Cuts: 196    44303    2.76%
+*   461+    0                         6733.0000     6635.9660             1.44%
+*   461+    0                         6705.0000     6635.9660             1.03%
+
+Repeating presolve.
+Tried aggregator 2 times.
+MIP Presolve eliminated 1174 rows and 2188 columns.
+MIP Presolve added 44 rows and 0 columns.
+MIP Presolve modified 371 coefficients.
+Aggregator did 127 substitutions.
+Reduced MIP has 943 rows, 1381 columns, and 4227 nonzeros.
+Reduced MIP has 703 binaries, 678 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (7.94 ticks)
+Tried aggregator 2 times.
+MIP Presolve eliminated 17 rows and 24 columns.
+MIP Presolve modified 87 coefficients.
+Aggregator did 4 substitutions.
+Reduced MIP has 922 rows, 1353 columns, and 4155 nonzeros.
+Reduced MIP has 680 binaries, 673 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (4.16 ticks)
+Tried aggregator 1 time.
+MIP Presolve modified 31 coefficients.
+Reduced MIP has 922 rows, 1353 columns, and 4155 nonzeros.
+Reduced MIP has 680 binaries, 673 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.90 ticks)
+Represolve time = 0.07 sec. (77.43 ticks)
+    461     0     6647.2757   134     6705.0000     Cuts: 158    45923    0.86%
+    461     0     6650.4793   134     6705.0000     Cuts: 125    45990    0.81%
+
+Repeating presolve.
+Tried aggregator 2 times.
+MIP Presolve eliminated 280 rows and 416 columns.
+MIP Presolve added 26 rows and 0 columns.
+MIP Presolve modified 271 coefficients.
+Aggregator did 32 substitutions.
+Reduced MIP has 636 rows, 905 columns, and 2567 nonzeros.
+Reduced MIP has 469 binaries, 436 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (5.20 ticks)
+Tried aggregator 2 times.
+MIP Presolve eliminated 20 rows and 18 columns.
+MIP Presolve added 12 rows and 0 columns.
+MIP Presolve modified 158 coefficients.
+Aggregator did 3 substitutions.
+Reduced MIP has 623 rows, 884 columns, and 2464 nonzeros.
+Reduced MIP has 457 binaries, 427 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (3.84 ticks)
+Tried aggregator 1 time.
+MIP Presolve modified 37 coefficients.
+Reduced MIP has 623 rows, 884 columns, and 2464 nonzeros.
+Reduced MIP has 457 binaries, 427 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (1.87 ticks)
+Represolve time = 0.05 sec. (39.75 ticks)
+    461     0     6654.8281   147     6705.0000     Cuts: 131    47020    0.75%
+    461     0     6662.4532   147     6705.0000     Cuts: 170    47210    0.63%
+    461     0     6679.1254   147     6705.0000     Cuts: 121    47492    0.39%
+    461     0     6684.2026   147     6705.0000     Cuts: 190    47712    0.31%
+    461     0     6688.0652   147     6705.0000     Cuts: 125    47914    0.25%
+    461     0     6690.8959   147     6705.0000     Cuts: 116    48032    0.21%
+    461     0     6691.2874   147     6705.0000     Cuts: 169    48116    0.20%
+    461     0     6692.5568   147     6705.0000     Cuts: 106    48239    0.19%
+    461     0     6694.1613   147     6705.0000      Cuts: 83    48354    0.16%
+    461     0     6694.3219   147     6705.0000      Cuts: 57    48403    0.16%
+    461     0     6694.3654   147     6705.0000      Cuts: 51    48446    0.16%
+    461     0     6694.4222   147     6705.0000      Cuts: 78    48491    0.16%
+    461     0     6694.5027   147     6705.0000      Cuts: 20    48534    0.16%
+    461     0     6694.6411   147     6705.0000       Cuts: 4    48552    0.15%
+    461     0     6694.6756   147     6705.0000    MIRcuts: 4    48561    0.15%
+    461     0     6694.6769   147     6705.0000      Cuts: 26    48574    0.15%
+    461     2     6694.6769   154     6705.0000     6694.6848    48574    0.15%
+
+GUB cover cuts applied:  86
+Clique cuts applied:  2
+Cover cuts applied:  19
+Implied bound cuts applied:  3
+Flow cuts applied:  215
+Mixed integer rounding cuts applied:  112
+Zero-half cuts applied:  21
+Lift and project cuts applied:  28
+Gomory fractional cuts applied:  5
+
+Root node processing (before b&c):
+  Real time             =    2.32 sec. (2859.45 ticks)
+Sequential b&c:
+  Real time             =    6.20 sec. (7700.61 ticks)
+                          ------------
+Total (root+branch&cut) =    8.52 sec. (10560.05 ticks)
+SOLUTION:
+
+x(0,117)[0..1]  = 1
+x(5,138)[0..1]  = 1
+x(6,49)[0..1]  = 1
+x(6,71)[0..1]  = 1
+x(7,23)[0..1]  = 1
+x(7,156)[0..1]  = 1
+x(11,88)[0..1]  = 1
+x(11,93)[0..1]  = 1
+x(17,36)[0..1]  = 1
+x(19,32)[0..1]  = 1
+x(23,102)[0..1]  = 1
+x(31,60)[0..1]  = 1
+x(32,52)[0..1]  = 1
+x(32,134)[0..1]  = 1
+x(36,96)[0..1]  = 1
+x(37,62)[0..1]  = 1
+x(44,114)[0..1]  = 1
+x(46,112)[0..1]  = 1
+x(52,104)[0..1]  = 1
+x(53,55)[0..1]  = 1
+x(55,106)[0..1]  = 1
+x(63,123)[0..1]  = 1
+x(63,125)[0..1]  = 1
+x(74,84)[0..1]  = 1
+x(77,140)[0..1]  = 1
+x(80,136)[0..1]  = 1
+x(84,87)[0..1]  = 1
+x(84,146)[0..1]  = 1
+x(87,118)[0..1]  = 1
+x(91,175)[0..1]  = 1
+x(98,149)[0..1]  = 1
+x(100,121)[0..1]  = 1
+x(107,132)[0..1]  = 1
+x(110,168)[0..1]  = 1
+x(110,170)[0..1]  = 1
+x(115,169)[0..1]  = 1
+x(117,152)[0..1]  = 1
+x(118,141)[0..1]  = 1
+x(134,155)[0..1]  = 1
+x(134,172)[0..1]  = 1
+x(135,148)[0..1]  = 1
+x(141,145)[0..1]  = 1
+x(148,199)[0..1]  = 1
+x(151,182)[0..1]  = 1
+x(152,159)[0..1]  = 1
+x(152,181)[0..1]  = 1
+x(153,179)[0..1]  = 1
+x(158,183)[0..1]  = 1
+x(171,177)[0..1]  = 1
+x(184,189)[0..1]  = 1
+x(187,191)[0..1]  = 1
+x(189,192)[0..1]  = 1
+x(159,5)[0..1]  = 1
+x(27,6)[0..1]  = 1
+x(181,7)[0..1]  = 1
+x(17,9)[0..1]  = 1
+x(46,11)[0..1]  = 1
+x(55,15)[0..1]  = 1
+x(140,17)[0..1]  = 1
+x(152,19)[0..1]  = 1
+x(138,21)[0..1]  = 1
+x(136,24)[0..1]  = 1
+x(115,27)[0..1]  = 1
+x(36,31)[0..1]  = 1
+x(84,37)[0..1]  = 1
+x(156,44)[0..1]  = 1
+x(121,46)[0..1]  = 1
+x(175,48)[0..1]  = 1
+x(135,50)[0..1]  = 1
+x(184,53)[0..1]  = 1
+x(182,63)[0..1]  = 1
+x(98,74)[0..1]  = 1
+x(181,77)[0..1]  = 1
+x(106,78)[0..1]  = 1
+x(107,80)[0..1]  = 1
+x(88,82)[0..1]  = 1
+x(148,91)[0..1]  = 1
+x(126,100)[0..1]  = 1
+x(191,107)[0..1]  = 1
+x(151,109)[0..1]  = 1
+x(189,110)[0..1]  = 1
+x(146,111)[0..1]  = 1
+x(159,115)[0..1]  = 1
+x(168,126)[0..1]  = 1
+x(192,128)[0..1]  = 1
+x(145,135)[0..1]  = 1
+x(192,151)[0..1]  = 1
+x(169,153)[0..1]  = 1
+x(194,157)[0..1]  = 1
+x(193,171)[0..1]  = 1
+x(187,184)[0..1]  = 1
+x(194,187)[0..1]  = 1
+x(195,188)[0..1]  = 1
+x(199,193)[0..1]  = 1
+x(199,194)[0..1]  = 1
+x(199,195)[0..1]  = 1
+z(5)[0..1]  = 1
+z(6)[0..1]  = 1
+z(7)[0..1]  = 1
+z(9)[0..1]  = 1
+z(11)[0..1]  = 1
+z(15)[0..1]  = 1
+z(17)[0..1]  = 1
+z(19)[0..1]  = 1
+z(21)[0..1]  = 1
+z(23)[0..1]  = 1
+z(24)[0..1]  = 1
+z(27)[0..1]  = 1
+z(31)[0..1]  = 1
+z(32)[0..1]  = 1
+z(36)[0..1]  = 1
+z(37)[0..1]  = 1
+z(44)[0..1]  = 1
+z(46)[0..1]  = 1
+z(48)[0..1]  = 1
+z(49)[0..1]  = 1
+z(50)[0..1]  = 1
+z(52)[0..1]  = 1
+z(53)[0..1]  = 1
+z(55)[0..1]  = 1
+z(60)[0..1]  = 1
+z(62)[0..1]  = 1
+z(63)[0..1]  = 1
+z(71)[0..1]  = 1
+z(74)[0..1]  = 1
+z(77)[0..1]  = 1
+z(78)[0..1]  = 1
+z(80)[0..1]  = 1
+z(82)[0..1]  = 1
+z(84)[0..1]  = 1
+z(87)[0..1]  = 1
+z(88)[0..1]  = 1
+z(91)[0..1]  = 1
+z(93)[0..1]  = 1
+z(96)[0..1]  = 1
+z(98)[0..1]  = 1
+z(100)[0..1]  = 1
+z(102)[0..1]  = 1
+z(104)[0..1]  = 1
+z(106)[0..1]  = 1
+z(107)[0..1]  = 1
+z(109)[0..1]  = 1
+z(110)[0..1]  = 1
+z(111)[0..1]  = 1
+z(112)[0..1]  = 1
+z(114)[0..1]  = 1
+z(115)[0..1]  = 1
+z(117)[0..1]  = 1
+z(118)[0..1]  = 1
+z(121)[0..1]  = 1
+z(123)[0..1]  = 1
+z(125)[0..1]  = 1
+z(126)[0..1]  = 1
+z(128)[0..1]  = 1
+z(132)[0..1]  = 1
+z(134)[0..1]  = 1
+z(135)[0..1]  = 1
+z(136)[0..1]  = 1
+z(138)[0..1]  = 1
+z(140)[0..1]  = 1
+z(141)[0..1]  = 1
+z(143)[0..1]  = 1
+z(145)[0..1]  = 1
+z(146)[0..1]  = 1
+z(148)[0..1]  = 1
+z(149)[0..1]  = 1
+z(151)[0..1]  = 1
+z(152)[0..1]  = 1
+z(153)[0..1]  = 1
+z(155)[0..1]  = 1
+z(156)[0..1]  = 1
+z(157)[0..1]  = 1
+z(158)[0..1]  = 1
+z(159)[0..1]  = 1
+z(168)[0..1]  = 1
+z(169)[0..1]  = 1
+z(170)[0..1]  = 1
+z(171)[0..1]  = 1
+z(172)[0..1]  = 1
+z(175)[0..1]  = 1
+z(177)[0..1]  = 1
+z(179)[0..1]  = 1
+z(181)[0..1]  = 1
+z(182)[0..1]  = 1
+z(183)[0..1]  = 1
+z(184)[0..1]  = 1
+z(187)[0..1]  = 1
+z(188)[0..1]  = 1
+z(189)[0..1]  = 1
+z(191)[0..1]  = 1
+z(192)[0..1]  = 1
+z(193)[0..1]  = 1
+z(194)[0..1]  = 1
+z(195)[0..1]  = 1
+z(199)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 467
+Objective value: 6705
+CPU time: 8.5
+

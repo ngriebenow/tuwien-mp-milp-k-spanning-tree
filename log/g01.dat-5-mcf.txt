@@ -1,0 +1,68 @@
+log/Reading instance from file data/g01.dat
+Number of nodes: 11
+Number of edges: 32
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+MIP Presolve eliminated 139 rows and 128 columns.
+MIP Presolve modified 177 coefficients.
+Reduced MIP has 640 rows, 650 columns, and 2872 nonzeros.
+Reduced MIP has 650 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.50 ticks)
+Found incumbent of value 2163.000000 after 0.01 sec. (5.16 ticks)
+Probing changed sense of 54 constraints.
+Probing time = 0.01 sec. (8.88 ticks)
+Tried aggregator 1 time.
+Detecting symmetries...
+MIP Presolve eliminated 64 rows and 54 columns.
+MIP Presolve modified 10 coefficients.
+Reduced MIP has 576 rows, 596 columns, and 2690 nonzeros.
+Reduced MIP has 596 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.77 ticks)
+Probing time = 0.00 sec. (2.59 ticks)
+Clique table members: 1920.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 0.00 sec. (1.48 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                         2163.0000        0.0000           100.00%
+      0     0      447.0000    21     2163.0000      447.0000      123   79.33%
+*     0+    0                          535.0000      447.0000            16.45%
+*     0     0      integral     0      477.0000      477.0000      147    0.00%
+Elapsed time = 0.04 sec. (30.48 ticks, tree = 0.01 MB, solutions = 3)
+
+Root node processing (before b&c):
+  Real time             =    0.04 sec. (30.51 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) =    0.04 sec. (30.51 ticks)
+SOLUTION:
+
+x(0,10)[0..1]  = 1
+x(3,1)[0..1]  = 1
+x(6,3)[0..1]  = 1
+x(7,6)[0..1]  = 1
+x(10,7)[0..1]  = 1
+z(1)[0..1]  = 1
+z(3)[0..1]  = 1
+z(6)[0..1]  = 1
+z(7)[0..1]  = 1
+z(10)[0..1]  = 1
+
+
+CPLEX finished.
+
+CPLEX status: Optimal
+Branch-and-Bound nodes: 0
+Objective value: 477
+CPU time: 0.03
+

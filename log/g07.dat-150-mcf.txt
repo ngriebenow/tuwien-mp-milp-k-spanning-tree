@@ -1,0 +1,46 @@
+log/Reading instance from file data/g07.dat
+Number of nodes: 301
+Number of edges: 3300
+initialize CPLEX ... done.
+Calling CPLEX solve ...
+Version identifier: 12.10.0.0 | 2019-11-26 | 843d4de
+CPXPARAM_Threads                                 1
+CPXPARAM_TimeLimit                               3600
+CPXPARAM_WorkMem                                 8192
+Tried aggregator 1 time.
+Presolve has eliminated 13501 rows and 13200 columns...
+MIP Presolve eliminated 13501 rows and 13200 columns.
+MIP Presolve modified 97500 coefficients.
+Reduced MIP has 1975204 rows, 1980300 columns, and 9619800 nonzeros.
+Reduced MIP has 1980300 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 123.90 sec. (21844.44 ticks)
+Probing time = 4.21 sec. (524.04 ticks)
+Tried aggregator 1 time.
+Presolve has eliminated 0 rows and 0 columns...
+Detecting symmetries...
+Reduced MIP has 1975204 rows, 1980300 columns, and 9619800 nonzeros.
+Reduced MIP has 1980300 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 117.49 sec. (20750.97 ticks)
+Probing time = 3.18 sec. (484.00 ticks)
+Clique table members: 6739251.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: none, using 1 thread.
+Root relaxation solution time = 3220.71 sec. (1301753.89 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0  -1.00000e+37     0                      0.0000   570919         
+
+Root node processing (before b&c):
+  Real time             = 3600.55 sec. (1373514.20 ticks)
+Sequential b&c:
+  Real time             =    0.00 sec. (0.00 ticks)
+                          ------------
+Total (root+branch&cut) = 3600.55 sec. (1373514.20 ticks)
+CPLEX finished.
+
+CPLEX status: Unknown
+Branch-and-Bound nodes: 0
+Objective value: 
