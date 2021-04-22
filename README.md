@@ -13,4 +13,7 @@ The goal is to develop a MILP formulation to solve the k-Minimum Spanning Tree.
 7. Run `./test.sh` to run all test instances using all 3 models
 8. Run `python test.py` to run all test instances, to collect the output in the log files and to see the results in the `out.csv` table.
 
+## Logs
+In the `log` folder, you can see the logs of all test runs. In the `out.csv` file, you can see our results in tabular format.
+
 
