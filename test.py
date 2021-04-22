@@ -19,7 +19,7 @@ INSTANCES = [["g01.dat", 2, 46],    ["g01.dat", 5, 477],
              ["g07.dat", 60, 1335], ["g07.dat", 150, 4534],
              ["g08.dat", 80, 1620], ["g08.dat", 200, 5787],
              ["g09.dat", 200, 2289], ["g09.dat", 500, 7595],
-             ["g10.dat", 400, 4182], ["g10.dat", 1000, 14991]][-3:]
+             ["g10.dat", 400, 4182], ["g10.dat", 1000, 14991]]
 
 reg_objective = re.compile("Objective value:\s*(\d+)")
 reg_duration = re.compile("CPU time:\s*(\d+(?:\.\d+)?)")
