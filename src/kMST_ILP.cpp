@@ -301,9 +301,16 @@ void kMST_ILP::modelCommon()
 		// create z_i variables
 		this->z = createVarsZ(env, instance.n_nodes);
 
+		// do not select artificial root node
+		IloExpr exprRoot(env);
+		exprRoot += z[0];
+		model.add(exprRoot == 0);
+		exprRoot.end();
+
 		// objective function
 		createObjectiveFunction(env, model, this->x, edges, numEdges);
 
+		
 		// restrict selected edge count to k - 1
 		createConstraint_selectedEdgeCount_equals_kMinus1(env, model, this->x, edges, numEdges, this->k);
 
@@ -330,7 +337,7 @@ void kMST_ILP::modelCommon()
 		createConstraint_selectKNodes(env, model, this->z, instance, this->k);
 		edgesInDegrees.endElements();
 		edgesOutDegrees.endElements();
-
+		
 
 	}
 	catch( IloException &e ) {

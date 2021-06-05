@@ -47,6 +47,8 @@ void CutCallback::invoke( const IloCplex::Callback::Context &_context )
  */
 void CutCallback::connectionCuts()
 {
+	
+
 	try {
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -85,7 +87,14 @@ void CutCallback::connectionCuts()
  */
 void CutCallback::cycleEliminationCuts()
 {
+	
+	cout << "ASFDSAFASFWEFASFASFSAFSADFSAFSAFÖSAFSAFLSFJSAJFLSAJFLSJFALSDJFLIDSAJFLASIJFL" << endl;
 	try {
+		if (context->inCandidate() == true) {
+			cout << "test" << endl;
+		}
+
+
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// TODO find violated cycle elimination cut inequalities

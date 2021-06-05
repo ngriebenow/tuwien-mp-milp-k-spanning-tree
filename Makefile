@@ -4,7 +4,7 @@ USERNAME = $(shell whoami)
 
 EXEC = ./kmst -f data/g01.dat -m scf -k 5
 
-DEBUG = 0
+DEBUG = 1
 
 # STEP 2:	CHANGE THE VERSION AND CPLEX_DIR HERE
 # 			The CPLEX_DIR variable should be the folder that contains the folders concert, cplex, cpoptimizer, ...
