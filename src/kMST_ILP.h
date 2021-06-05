@@ -28,6 +28,8 @@ private:
 	IloIntVarArray f; // flow variables
 	IloIntVarArray d; // node distance variables
 
+	vector<Instance::Edge> dEdges;
+
 	vector<IloIntVarArray> fk; // custom multi-flow variables
 
 	IloNumArray values; // to store variable values

@@ -4,6 +4,7 @@
 #include "Instance.h"
 #include "Maxflow.h"
 #include <ilcplex/ilocplex.h>
+#include <stack>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ private:
 	IloBoolVarArray &x;
 	IloBoolVarArray &z;
 	IloNumArray xsol, zsol;
+	vector<Instance::Edge> &dEdges;
 
 	// separate directed connection cuts
 	void connectionCuts();
@@ -27,6 +29,13 @@ private:
 	// separate cycle elimination cuts
 	void cycleEliminationCuts();
 
+	void testeig(const vector<int> &vertices, const vector<int> &edges,
+					  vector<int> &flags);
+
+	void dfs(const int v,
+					  const vector<int> &vertices,
+					  const vector<int> &edges,
+					  vector<int> &flags);
 
 	// SHORTEST PATHS
 
@@ -58,7 +67,7 @@ private:
 
 public:
 
-	CutCallback( string _cut_type, double _eps, Instance &_instance, IloBoolVarArray &_x, IloBoolVarArray &_z );
+	CutCallback( string _cut_type, double _eps, Instance &_instance, IloBoolVarArray &_x, IloBoolVarArray &_, vector<Instance::Edge> &_dEdges );
 	virtual ~CutCallback();
 
 	void invoke( const IloCplex::Callback::Context &_context );

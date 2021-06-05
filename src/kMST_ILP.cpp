@@ -52,7 +52,7 @@ void kMST_ILP::solve()
 
 		// set cut-callback for cycle-elimination cuts ("cec") or directed connection cuts ("dcc")
 		// both for integer (mandatory!) and fractional (optional) solutions
-		CutCallback cb( model_type, epsOpt, instance, x, z );
+		CutCallback cb( model_type, epsOpt, instance, x, z, edges);
 		if( model_type == "dcc" || model_type == "cec" ) {
 			CPXLONG contextmask = IloCplex::Callback::Context::Id::Candidate | IloCplex::Callback::Context::Id::Relaxation;
 			cplex.use( &cb, contextmask );
@@ -304,7 +304,7 @@ void kMST_ILP::modelCommon()
 		// do not select artificial root node
 		IloExpr exprRoot(env);
 		exprRoot += z[0];
-		model.add(exprRoot == 0);
+		model.add(exprRoot == 1);
 		exprRoot.end();
 
 		// objective function

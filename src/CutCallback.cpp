@@ -1,7 +1,7 @@
 #include "CutCallback.h"
 
-CutCallback::CutCallback( string _cut_type, double _eps, Instance &_instance, IloBoolVarArray &_x, IloBoolVarArray &_z ) :
-	cut_type( _cut_type ), eps( _eps ), instance( _instance ), context( NULL ), x( _x ), z( _z )
+CutCallback::CutCallback( string _cut_type, double _eps, Instance &_instance, IloBoolVarArray &_x, IloBoolVarArray &_z, vector<Instance::Edge> &_dEdges ) :
+	cut_type( _cut_type ), eps( _eps ), instance( _instance ), context( NULL ), x( _x ), z( _z ), dEdges( _dEdges)
 {
 	arc_weights.resize( 2 * instance.n_edges );
 }
@@ -82,17 +82,137 @@ void CutCallback::connectionCuts()
 	}
 }
 
+vector<int> indices;
+
+void strongConnect()
+{
+	cout << "TODO";
+}
+
+void tarjan(const vector<int> &vertices, const vector<int> &edges)
+{
+	int index = 0;
+	stack<int> stack;
+
+	indices.clear();
+	for (u_int i = 0; i < vertices.size(); i++)
+	{
+		indices.push_back(-1);
+	}
+	
+	for (u_int i = 0; i < vertices.size(); i++)
+	{
+		if (indices[i] == -1)
+		{
+			strongConnect();
+		}
+	}
+}
+
+void CutCallback::testeig(const vector<int> &vertices, const vector<int> &edges,
+					  vector<int> &flags)
+{
+	
+	int real_root = 0;
+	for (u_int i = 0; i < edges.size(); i++)
+	{
+		if (instance.edges[edges[i] / 2].v1 == 0) {
+			real_root = instance.edges[edges[i]].v2;
+			break;
+		}
+	}
+
+	flags[real_root] = 1;
+	dfs(real_root, vertices, edges, flags);
+
+}
+
+void CutCallback::dfs(const int v,
+					  const vector<int> &vertices,
+					  const vector<int> &edges,
+					  vector<int> &flags)
+{
+	for (u_int i = 0; i < edges.size(); i++)
+	{
+		int v1 = dEdges[edges[i]].v1;
+		int v2 = dEdges[edges[i]].v2;
+
+		if (v1 == v)
+		{
+			int neighbor = v1 == v ? v2 : v1;
+
+			flags[neighbor] += 1;
+
+			if (flags[neighbor] == 1) {
+				dfs(neighbor, vertices, edges, flags);
+			}
+		}
+	}
+	
+
+/*
+	for (u_int ei: instance.incidentEdges.at(v))
+	{
+		int v1 = instance.edges[ei].v1;
+		int v2 = instance.edges[ei].v2;
+		int neighbor = v1 == v ? v2 : v1;
+		
+		flags[neighbor] += 1;
+
+		if (flags[neighbor] == 1) {
+			dfs(neighbor, vertices, edges, flags);
+		}
+	}*/
+}
+
+
 /*
  * separation of cycle elimination cut inequalities
  */
 void CutCallback::cycleEliminationCuts()
 {
-	
-	cout << "ASFDSAFASFWEFASFASFSAFSADFSAFSAFÖSAFSAFLSFJSAJFLSAJFLSJFALSDJFLIDSAJFLASIJFL" << endl;
 	try {
 		if (context->inCandidate() == true) {
-			cout << "test" << endl;
+			const int value0 = xsol[0];
+			cout << "test" << value0 << endl;
+
+			vector<int> z_u;
+			vector<int> x_u;
+			vector<int> flags;
+			
+			for (u_int i = 0; i < zsol.getSize(); i++)
+			{
+				flags.push_back(0);
+				
+				if (zsol[i] == 1) {
+					z_u.push_back(i);
+				}
+			}
+
+			for (u_int i = 0; i < xsol.getSize(); i++)
+			{
+				if (xsol[i] == 1) {
+					x_u.push_back(i);
+				}
+			}
+			
+			testeig(z_u, x_u, flags);
+
+			for (u_int i = 0; i < flags.size(); i++)
+			{
+				if (flags[i] > 1)
+				{
+					cout << "rej";
+				}
+			}
+			
+
 		}
+
+		//vector<IloNum> xu;
+		//vector<IloNum> zu;
+
+		
 
 
 
