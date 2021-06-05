@@ -32,7 +32,7 @@ private:
 	void testeig(const vector<int> &vertices, const vector<int> &edges,
 					  vector<int> &flags);
 
-	void dfs(const int v,
+	bool dfs(const int v,
 					  const vector<int> &vertices,
 					  const vector<int> &edges,
 					  vector<int> &flags);

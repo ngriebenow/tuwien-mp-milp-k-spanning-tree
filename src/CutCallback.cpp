@@ -127,7 +127,7 @@ void CutCallback::testeig(const vector<int> &vertices, const vector<int> &edges,
 
 }
 
-void CutCallback::dfs(const int v,
+bool CutCallback::dfs(const int v,
 					  const vector<int> &vertices,
 					  const vector<int> &edges,
 					  vector<int> &flags)
@@ -139,16 +139,24 @@ void CutCallback::dfs(const int v,
 
 		if (v1 == v)
 		{
-			int neighbor = v1 == v ? v2 : v1;
+			flags[v2] += 1;
 
-			flags[neighbor] += 1;
-
-			if (flags[neighbor] == 1) {
-				dfs(neighbor, vertices, edges, flags);
+			if (flags[v2] == 2) {
+				return true;
 			}
+
+			bool result = dfs(v2, vertices, edges, flags);
+
+			if (result)
+			{
+				return true;
+			}
+
+			flags[v2] -= 1;
 		}
 	}
 	
+	return false;
 
 /*
 	for (u_int ei: instance.incidentEdges.at(v))
@@ -196,44 +204,81 @@ void CutCallback::cycleEliminationCuts()
 				}
 			}
 			
-			testeig(z_u, x_u, flags);
-
-			for (u_int i = 0; i < flags.size(); i++)
+			bool ok = true;
+			for (u_int i = 0; i < zsol.getSize() && ok; i++)
 			{
-				if (flags[i] > 1)
-				{
-					cout << "rej";
-				}
+				flags[i] = 1;
+				ok = !dfs(i, z_u, x_u, flags);
+				flags[i] = 0;
 			}
 			
 
+			//testeig(z_u, x_u, flags);
+
+			// bool ok = true;
+			// for (u_int i = 0; i < flags.size(); i++)
+			// {
+			// 	if (flags[i] != 1)
+			// 	{
+			// 		ok = false;
+			// 		break;
+			// 	}
+			// }
+			if (ok)
+			{
+				return;
+			}
+			
+			//IloRange r( env, ... );
+
+			IloExpr expr(env);
+			for (u_int m = 0; m < x_u.size(); m++) {
+				expr += x[x_u[m]];
+			}
+
+			IloRange r = IloRange(env, 0, expr, x_u.size() -1 );
+
+			switch( context->getId() ) {
+				case IloCplex::Callback::Context::Id::Candidate:
+					context->rejectCandidate( r );
+					break;
+				case IloCplex::Callback::Context::Id::Relaxation:
+					//context->addUserCut( r, IloCplex::UseCutForce, IloFalse );
+					break;
+				default:
+					r.end();
+					throw IloCplex::Exception( -1, "Unexpected contextID" );
+			}
+			expr.end();
+			r.end();
 		}
+
+		
 
 		//vector<IloNum> xu;
 		//vector<IloNum> zu;
 
 		
 
-
-
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// TODO find violated cycle elimination cut inequalities
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//				// add found violated cut to model
-//				IloRange r( env, ... );
-//				switch( context->getId() ) {
-//					case IloCplex::Callback::Context::Id::Candidate:
-//						context->rejectCandidate( r );
-//						break;
-//					case IloCplex::Callback::Context::Id::Relaxation:
-//						context->addUserCut( r, IloCplex::UseCutForce, IloFalse );
-//						break;
-//					default:
-//						r.end();
-//						throw IloCplex::Exception( -1, "Unexpected contextID" );
-//				}
-//				r.end();
+		// add found violated cut to model
+		// IloRange r( env, ... );
+
+		// switch( context->getId() ) {
+		// 	case IloCplex::Callback::Context::Id::Candidate:
+		// 		context->rejectCandidate( r );
+		// 		break;
+		// 	case IloCplex::Callback::Context::Id::Relaxation:
+		// 		context->addUserCut( r, IloCplex::UseCutForce, IloFalse );
+		// 		break;
+		// 	default:
+		// 		r.end();
+		// 		throw IloCplex::Exception( -1, "Unexpected contextID" );
+		// }
+		// r.end();
 
 	}
 	catch( IloException &e ) {
