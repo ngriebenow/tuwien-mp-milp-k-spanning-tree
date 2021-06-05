@@ -1,6 +1,7 @@
 kmst
 obj/
 log/
+.vscode/
 
 out.csv
 model.lp
