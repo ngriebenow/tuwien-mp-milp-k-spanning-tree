@@ -109,28 +109,12 @@ void tarjan(const vector<int> &vertices, const vector<int> &edges)
 	}
 }
 
-void CutCallback::testeig(const vector<int> &vertices, const vector<int> &edges,
-					  vector<int> &flags)
-{
-	
-	int real_root = 0;
-	for (u_int i = 0; i < edges.size(); i++)
-	{
-		if (instance.edges[edges[i] / 2].v1 == 0) {
-			real_root = instance.edges[edges[i]].v2;
-			break;
-		}
-	}
-
-	flags[real_root] = 1;
-	dfs(real_root, vertices, edges, flags);
-
-}
-
-bool CutCallback::dfs(const int v,
+int CutCallback::dfs(const int v,
 					  const vector<int> &vertices,
 					  const vector<int> &edges,
-					  vector<int> &flags)
+					  vector<int> &flags,
+					  int depth,
+					  stack<int> &edge_stack)
 {
 	for (u_int i = 0; i < edges.size(); i++)
 	{
@@ -139,24 +123,28 @@ bool CutCallback::dfs(const int v,
 
 		if (v1 == v)
 		{
-			flags[v2] += 1;
+			edge_stack.push(edges[i]);
 
-			if (flags[v2] == 2) {
-				return true;
+			if (flags[v2] != 0) {
+				return v2;
 			}
 
-			bool result = dfs(v2, vertices, edges, flags);
+			flags[v2] = depth;
 
-			if (result)
+			int result = dfs(v2, vertices, edges, flags, depth + 1, edge_stack);
+
+			if (result != -1)
 			{
-				return true;
+				return result;
 			}
 
-			flags[v2] -= 1;
+			edge_stack.pop();
+
+			flags[v2] = 0;
 		}
 	}
 	
-	return false;
+	return -1;
 
 /*
 	for (u_int ei: instance.incidentEdges.at(v))
@@ -181,12 +169,10 @@ void CutCallback::cycleEliminationCuts()
 {
 	try {
 		if (context->inCandidate() == true) {
-			const int value0 = xsol[0];
-			cout << "test" << value0 << endl;
-
 			vector<int> z_u;
 			vector<int> x_u;
 			vector<int> flags;
+			stack<int> edge_stack;
 			
 			for (u_int i = 0; i < zsol.getSize(); i++)
 			{
@@ -205,36 +191,42 @@ void CutCallback::cycleEliminationCuts()
 			}
 			
 			bool ok = true;
+			int last_node_index = -1;
 			for (u_int i = 0; i < zsol.getSize() && ok; i++)
 			{
 				flags[i] = 1;
-				ok = !dfs(i, z_u, x_u, flags);
+				last_node_index = dfs(i, z_u, x_u, flags, 2, edge_stack);
+				if (last_node_index != -1)
+				{
+					ok = false;
+					break;
+				}
+
 				flags[i] = 0;
 			}
 			
-
-			//testeig(z_u, x_u, flags);
-
-			// bool ok = true;
-			// for (u_int i = 0; i < flags.size(); i++)
-			// {
-			// 	if (flags[i] != 1)
-			// 	{
-			// 		ok = false;
-			// 		break;
-			// 	}
-			// }
 			if (ok)
 			{
 				return;
 			}
+
+			IloExpr expr(env);
+
+			int predecessor = -1;
+			while (last_node_index != predecessor) {
+				int next_last_edge_index = edge_stack.top();
+				edge_stack.pop();
+				predecessor = dEdges[next_last_edge_index].v1;
+				
+				expr += x[next_last_edge_index];
+			}
 			
 			//IloRange r( env, ... );
 
-			IloExpr expr(env);
-			for (u_int m = 0; m < x_u.size(); m++) {
-				expr += x[x_u[m]];
-			}
+			//IloExpr expr(env);
+			//for (u_int m = 0; m < x_u.size(); m++) {
+			//	expr += x[x_u[m]];
+			//}
 
 			IloRange r = IloRange(env, 0, expr, x_u.size() -1 );
 

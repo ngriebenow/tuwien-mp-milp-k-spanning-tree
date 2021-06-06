@@ -29,13 +29,12 @@ private:
 	// separate cycle elimination cuts
 	void cycleEliminationCuts();
 
-	void testeig(const vector<int> &vertices, const vector<int> &edges,
-					  vector<int> &flags);
-
-	bool dfs(const int v,
+	int dfs(const int v,
 					  const vector<int> &vertices,
 					  const vector<int> &edges,
-					  vector<int> &flags);
+					  vector<int> &flags,
+					  int depth,
+					  stack<int> &edge_stack);
 
 	// SHORTEST PATHS
 
