@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/kmst",
-            "args": ["-f", "data/g01.dat", "-k", "2", "-m", "cec"],
+            "args": ["-f", "data/s01.dat", "-k", "3", "-m", "cec"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

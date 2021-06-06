@@ -42,12 +42,6 @@ void CutCallback::invoke( const IloCplex::Callback::Context &_context )
 	zsol.end();
 }
 
-// flags
-// 0 ... not yet considered
-// 1, 2, 3, ... depth in current dfs
-// -1 ... checked, done
-
-
 /*
  * separation of directed connection cut inequalities
  */
@@ -88,72 +82,6 @@ void CutCallback::connectionCuts()
 	}
 }
 
-int CutCallback::dfs(const int v,
-					  const vector<int> &vertices,
-					  const vector<int> &edges,
-					  vector<int> &flags,
-					  int depth,
-					  stack<int> &edge_stack,
-					  vector<vector<int> > &epv)
-{
-	for (u_int i = 0; i < epv[v].size(); i++)
-	{
-		int v2 = dEdges[epv[v][i]].v2;
-
-		edge_stack.push(epv[v][i]);
-
-		if (flags[v2] > 0) {
-			return v2;
-		}
-
-		flags[v2] = depth;
-
-		int result = dfs(v2, vertices, edges, flags, depth + 1, edge_stack, epv);
-
-		if (result != -1)
-		{
-			return result;
-		}
-
-		edge_stack.pop();
-
-		flags[v2] = -1;
-	}
-	
-
-	/*
-	for (u_int i = 0; i < edges.size(); i++)
-	{
-		int v1 = dEdges[edges[i]].v1;
-		int v2 = dEdges[edges[i]].v2;
-
-		if (v1 == v)
-		{
-			edge_stack.push(edges[i]);
-
-			if (flags[v2] > 0) {
-				return v2;
-			}
-
-			flags[v2] = depth;
-
-			int result = dfs(v2, vertices, edges, flags, depth + 1, edge_stack);
-
-			if (result != -1)
-			{
-				return result;
-			}
-
-			edge_stack.pop();
-
-			flags[v2] = -1;
-		}
-	}*/
-	
-	return -1;
-}
-
-
 /*
  * separation of cycle elimination cut inequalities
  */
@@ -161,88 +89,48 @@ void CutCallback::cycleEliminationCuts()
 {
 	try {
 		if (context->inCandidate() == true) {
-			vector<int> z_u;
-			vector<int> x_u;
-			vector<int> flags;
-			stack<int> edge_stack;
 
-			vector<vector<int> > epv;
-
-			for (u_int i = 0; i < zsol.getSize(); i++)
-			{
-				vector<int> ep;
-				epv.push_back(ep);
-				flags.push_back(0);
-
-				if (zsol[i] == 1) {
-					z_u.push_back(i);
-
-					
-				}
-			}
-
+			// substitute arc weights
 			for (u_int i = 0; i < xsol.getSize(); i++)
 			{
-				if (xsol[i] == 1) {
-					x_u.push_back(i);
-				}
+				arc_weights[i] = 1 - xsol[i];
 			}
 
-			
-			for (u_int i = 0; i < x_u.size(); i++)
+			// search for a cycle
+			for (u_int i = 0; i < dEdges.size(); i++)
 			{
-				int v1 = dEdges[x_u[i]].v1;
-				epv[v1].push_back(x_u[i]);
-			}
-			
-			bool ok = true;
-			int last_node_index = -1;
-			for (u_int i = 0; i < zsol.getSize() && ok; i++)
-			{
-				if (flags[i] == 0) {
-					flags[i] = 1;
-					last_node_index = dfs(i, z_u, x_u, flags, 2, edge_stack, epv);
-					if (last_node_index != -1)
-					{
-						ok = false;
-						break;
-					}
+				int v1 = dEdges[i].v1;
+				int v2 = dEdges[i].v2;
 
-					flags[i] = -1;
-				}
-			}
-			
-			if (ok)
-			{
-				return;
-			}
-
-			IloExpr expr(env);
-
-			int predecessor = -1;
-			while (last_node_index != predecessor) {
-				int next_last_edge_index = edge_stack.top();
-				edge_stack.pop();
-				predecessor = dEdges[next_last_edge_index].v1;
+				SPResultT result = shortestPath(v2, v1);
 				
-				expr += x[next_last_edge_index];
-			}
-			
-			IloRange r = IloRange(env, 0, expr, x_u.size() -1 );
+				if (result.weight + arc_weights[i] < 1) {
+					// cycle detected!
 
-			switch( context->getId() ) {
-				case IloCplex::Callback::Context::Id::Candidate:
-					context->rejectCandidate( r );
-					break;
-				case IloCplex::Callback::Context::Id::Relaxation:
-					//context->addUserCut( r, IloCplex::UseCutForce, IloFalse );
-					break;
-				default:
+					IloExpr expr(env);
+
+					expr += x[i];
+					for (auto const& j : result.path)
+					{
+						expr += x[j];
+					}
+					IloRange r = IloRange(env, 0, expr, result.path.size());
+
+					switch( context->getId() ) {
+						case IloCplex::Callback::Context::Id::Candidate:
+							context->rejectCandidate( r );
+							break;
+						case IloCplex::Callback::Context::Id::Relaxation:
+							//context->addUserCut( r, IloCplex::UseCutForce, IloFalse );
+							break;
+						default:
+							r.end();
+							throw IloCplex::Exception( -1, "Unexpected contextID" );
+					}
+					expr.end();
 					r.end();
-					throw IloCplex::Exception( -1, "Unexpected contextID" );
+				}
 			}
-			expr.end();
-			r.end();
 		}
 
 		// switch( context->getId() ) {

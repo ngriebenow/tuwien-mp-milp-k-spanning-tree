@@ -29,14 +29,6 @@ private:
 	// separate cycle elimination cuts
 	void cycleEliminationCuts();
 
-	int dfs(const int v,
-					  const vector<int> &vertices,
-					  const vector<int> &edges,
-					  vector<int> &flags,
-					  int depth,
-					  stack<int> &edge_stack,
-					  vector<vector<int> > &epv);
-
 	// SHORTEST PATHS
 
 	struct SPNodeT
