@@ -93,8 +93,35 @@ int CutCallback::dfs(const int v,
 					  const vector<int> &edges,
 					  vector<int> &flags,
 					  int depth,
-					  stack<int> &edge_stack)
+					  stack<int> &edge_stack,
+					  vector<vector<int> > &epv)
 {
+	for (u_int i = 0; i < epv[v].size(); i++)
+	{
+		int v2 = dEdges[epv[v][i]].v2;
+
+		edge_stack.push(epv[v][i]);
+
+		if (flags[v2] > 0) {
+			return v2;
+		}
+
+		flags[v2] = depth;
+
+		int result = dfs(v2, vertices, edges, flags, depth + 1, edge_stack, epv);
+
+		if (result != -1)
+		{
+			return result;
+		}
+
+		edge_stack.pop();
+
+		flags[v2] = -1;
+	}
+	
+
+	/*
 	for (u_int i = 0; i < edges.size(); i++)
 	{
 		int v1 = dEdges[edges[i]].v1;
@@ -121,7 +148,7 @@ int CutCallback::dfs(const int v,
 
 			flags[v2] = -1;
 		}
-	}
+	}*/
 	
 	return -1;
 }
@@ -138,13 +165,19 @@ void CutCallback::cycleEliminationCuts()
 			vector<int> x_u;
 			vector<int> flags;
 			stack<int> edge_stack;
-			
+
+			vector<vector<int> > epv;
+
 			for (u_int i = 0; i < zsol.getSize(); i++)
 			{
+				vector<int> ep;
+				epv.push_back(ep);
 				flags.push_back(0);
-				
+
 				if (zsol[i] == 1) {
 					z_u.push_back(i);
+
+					
 				}
 			}
 
@@ -154,6 +187,13 @@ void CutCallback::cycleEliminationCuts()
 					x_u.push_back(i);
 				}
 			}
+
+			
+			for (u_int i = 0; i < x_u.size(); i++)
+			{
+				int v1 = dEdges[x_u[i]].v1;
+				epv[v1].push_back(x_u[i]);
+			}
 			
 			bool ok = true;
 			int last_node_index = -1;
@@ -161,7 +201,7 @@ void CutCallback::cycleEliminationCuts()
 			{
 				if (flags[i] == 0) {
 					flags[i] = 1;
-					last_node_index = dfs(i, z_u, x_u, flags, 2, edge_stack);
+					last_node_index = dfs(i, z_u, x_u, flags, 2, edge_stack, epv);
 					if (last_node_index != -1)
 					{
 						ok = false;

@@ -34,7 +34,8 @@ private:
 					  const vector<int> &edges,
 					  vector<int> &flags,
 					  int depth,
-					  stack<int> &edge_stack);
+					  stack<int> &edge_stack,
+					  vector<vector<int> > &epv);
 
 	// SHORTEST PATHS
 
