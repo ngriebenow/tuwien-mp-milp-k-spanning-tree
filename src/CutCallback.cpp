@@ -47,47 +47,68 @@ void CutCallback::invoke( const IloCplex::Callback::Context &_context )
  */
 void CutCallback::connectionCuts()
 {
-	int n = instance.n_nodes;
-	int m = dEdges.size();
+	if (context->inCandidate() == true) {
 
-	list<pair<u_int, u_int> > arcs;
+		int n = instance.n_nodes;
+		int m = dEdges.size();
 
-	double* weights = new double[n];
+		list<pair<u_int, u_int> > arcs;
 
-	for (u_int i = 0; i < dEdges.size(); i++)
-	{
-		int v1 = dEdges[i].v1;
-		int v2 = dEdges[i].v2;
-		arcs.push_back( pair<u_int, u_int> (v1, v2));
+		double* weights = new double[m];
 
-		weights[i] = xsol[i];
-	}
+		for (u_int i = 0; i < dEdges.size(); i++)
+		{
+			int v1 = dEdges[i].v1;
+			int v2 = dEdges[i].v2;
 
-	// init algorithm
-	Maxflow algorithm( n, m, arcs );
+			arcs.push_back( pair<u_int, u_int> (v1, v2));
 
-	int min_cut_cap =  numeric_limits<int>::max();
-	int* min_cut;
-
-	for (int i = 1; i < n; i++)
-	{
-		// use algorithm
-		algorithm.update( 0, 1, weights );
-
-		int* cut = new int[n];
-		double f = algorithm.min_cut( 100.0, cut );
-
-		if (f < min_cut_cap) {
-			min_cut_cap = f;
-			min_cut = cut;
+			weights[i] = xsol[i];
 		}
-	}
 
-	if (min_cut_cap < 2) {
-		// violated inequality found
+		// init algorithm
+		Maxflow algorithm( n, m, arcs );
 
-		// TODO
-		cout << "invalid" << endl;
+		int min_cut_cap =  numeric_limits<int>::max();
+		int* min_cut;
+
+		for (int i = 1; i < n; i++)
+		{
+			// use algorithm
+			algorithm.update( 0, i, weights );
+
+			int* cut = new int[n];
+			double f = algorithm.min_cut( 100.0, cut );
+
+			if (f < min_cut_cap) {
+				min_cut_cap = f;
+				min_cut = cut;
+			}
+		}
+
+		if (min_cut_cap < 1) {
+			// violated inequality found
+
+
+			IloExpr expr(env);
+
+			for (u_int i = 0; i < dEdges.size(); i++)
+			{
+				int v1 = dEdges[i].v1;
+				int v2 = dEdges[i].v2;
+
+				if (min_cut[v1] == 1 && min_cut[v2] == 1) {
+					expr += x[i];
+				}
+			}
+			
+			IloRange r = IloRange(env, 1, expr, m);
+			context->rejectCandidate( r );
+			expr.end();
+			r.end();
+
+		}
+
 	}
 	
 	try {
