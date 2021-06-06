@@ -47,8 +47,49 @@ void CutCallback::invoke( const IloCplex::Callback::Context &_context )
  */
 void CutCallback::connectionCuts()
 {
-	
+	int n = instance.n_nodes;
+	int m = dEdges.size();
 
+	list<pair<u_int, u_int> > arcs;
+
+	double* weights = new double[n];
+
+	for (u_int i = 0; i < dEdges.size(); i++)
+	{
+		int v1 = dEdges[i].v1;
+		int v2 = dEdges[i].v2;
+		arcs.push_back( pair<u_int, u_int> (v1, v2));
+
+		weights[i] = xsol[i];
+	}
+
+	// init algorithm
+	Maxflow algorithm( n, m, arcs );
+
+	int min_cut_cap =  numeric_limits<int>::max();
+	int* min_cut;
+
+	for (int i = 1; i < n; i++)
+	{
+		// use algorithm
+		algorithm.update( 0, 1, weights );
+
+		int* cut = new int[n];
+		double f = algorithm.min_cut( 100.0, cut );
+
+		if (f < min_cut_cap) {
+			min_cut_cap = f;
+			min_cut = cut;
+		}
+	}
+
+	if (min_cut_cap < 2) {
+		// violated inequality found
+
+		// TODO
+		cout << "invalid" << endl;
+	}
+	
 	try {
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
