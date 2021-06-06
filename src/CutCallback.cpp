@@ -71,19 +71,26 @@ void CutCallback::connectionCuts()
 
 		int min_cut_cap =  numeric_limits<int>::max();
 		int* min_cut;
+		int min_node = -1;
 
 		for (int i = 1; i < n; i++)
 		{
-			// use algorithm
-			algorithm.update( 0, i, weights );
+			if (zsol[i] == 1) {
 
-			int* cut = new int[n];
-			double f = algorithm.min_cut( 100.0, cut );
+				// use algorithm
+				algorithm.update( 0, i, weights );
 
-			if (f < min_cut_cap) {
-				min_cut_cap = f;
-				min_cut = cut;
+				int* cut = new int[n];
+				double f = algorithm.min_cut( 100.0, cut );
+
+				if (f < min_cut_cap) {
+					min_cut_cap = f;
+					min_cut = cut;
+					min_node = i;
+				}
+
 			}
+			
 		}
 
 		if (min_cut_cap < 1) {
@@ -92,12 +99,16 @@ void CutCallback::connectionCuts()
 
 			IloExpr expr(env);
 
+			//expr += 1;
+			//expr -= z[min_node];
+
 			for (u_int i = 0; i < dEdges.size(); i++)
 			{
 				int v1 = dEdges[i].v1;
 				int v2 = dEdges[i].v2;
 
-				if (min_cut[v1] == 1 && min_cut[v2] == 1) {
+				if (min_cut[v1] == 1 && min_cut[v2] != 1)
+				{
 					expr += x[i];
 				}
 			}
