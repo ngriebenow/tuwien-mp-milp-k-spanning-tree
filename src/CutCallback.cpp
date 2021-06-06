@@ -82,33 +82,6 @@ void CutCallback::connectionCuts()
 	}
 }
 
-vector<int> indices;
-
-void strongConnect()
-{
-	cout << "TODO";
-}
-
-void tarjan(const vector<int> &vertices, const vector<int> &edges)
-{
-	int index = 0;
-	stack<int> stack;
-
-	indices.clear();
-	for (u_int i = 0; i < vertices.size(); i++)
-	{
-		indices.push_back(-1);
-	}
-	
-	for (u_int i = 0; i < vertices.size(); i++)
-	{
-		if (indices[i] == -1)
-		{
-			strongConnect();
-		}
-	}
-}
-
 int CutCallback::dfs(const int v,
 					  const vector<int> &vertices,
 					  const vector<int> &edges,
@@ -145,20 +118,6 @@ int CutCallback::dfs(const int v,
 	}
 	
 	return -1;
-
-/*
-	for (u_int ei: instance.incidentEdges.at(v))
-	{
-		int v1 = instance.edges[ei].v1;
-		int v2 = instance.edges[ei].v2;
-		int neighbor = v1 == v ? v2 : v1;
-		
-		flags[neighbor] += 1;
-
-		if (flags[neighbor] == 1) {
-			dfs(neighbor, vertices, edges, flags);
-		}
-	}*/
 }
 
 
@@ -221,13 +180,6 @@ void CutCallback::cycleEliminationCuts()
 				expr += x[next_last_edge_index];
 			}
 			
-			//IloRange r( env, ... );
-
-			//IloExpr expr(env);
-			//for (u_int m = 0; m < x_u.size(); m++) {
-			//	expr += x[x_u[m]];
-			//}
-
 			IloRange r = IloRange(env, 0, expr, x_u.size() -1 );
 
 			switch( context->getId() ) {
@@ -244,20 +196,6 @@ void CutCallback::cycleEliminationCuts()
 			expr.end();
 			r.end();
 		}
-
-		
-
-		//vector<IloNum> xu;
-		//vector<IloNum> zu;
-
-		
-
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// TODO find violated cycle elimination cut inequalities
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-		// add found violated cut to model
-		// IloRange r( env, ... );
 
 		// switch( context->getId() ) {
 		// 	case IloCplex::Callback::Context::Id::Candidate:
