@@ -42,6 +42,12 @@ void CutCallback::invoke( const IloCplex::Callback::Context &_context )
 	zsol.end();
 }
 
+// flags
+// 0 ... not yet considered
+// 1, 2, 3, ... depth in current dfs
+// -1 ... checked, done
+
+
 /*
  * separation of directed connection cut inequalities
  */
@@ -98,7 +104,7 @@ int CutCallback::dfs(const int v,
 		{
 			edge_stack.push(edges[i]);
 
-			if (flags[v2] != 0) {
+			if (flags[v2] > 0) {
 				return v2;
 			}
 
@@ -113,7 +119,7 @@ int CutCallback::dfs(const int v,
 
 			edge_stack.pop();
 
-			flags[v2] = 0;
+			flags[v2] = -1;
 		}
 	}
 	
@@ -153,15 +159,17 @@ void CutCallback::cycleEliminationCuts()
 			int last_node_index = -1;
 			for (u_int i = 0; i < zsol.getSize() && ok; i++)
 			{
-				flags[i] = 1;
-				last_node_index = dfs(i, z_u, x_u, flags, 2, edge_stack);
-				if (last_node_index != -1)
-				{
-					ok = false;
-					break;
-				}
+				if (flags[i] == 0) {
+					flags[i] = 1;
+					last_node_index = dfs(i, z_u, x_u, flags, 2, edge_stack);
+					if (last_node_index != -1)
+					{
+						ok = false;
+						break;
+					}
 
-				flags[i] = 0;
+					flags[i] = -1;
+				}
 			}
 			
 			if (ok)
