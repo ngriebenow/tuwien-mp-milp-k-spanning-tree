@@ -6,12 +6,35 @@
 
 std::vector<int> myvector;
 
+list<pair<u_int, u_int> > arcs;
+double* weights;
+Maxflow* algorithm;
+
 CutCallback::CutCallback( string _cut_type, double _eps, Instance &_instance, IloBoolVarArray &_x, IloBoolVarArray &_z, vector<Instance::Edge> &_dEdges ) :
 	cut_type( _cut_type ), eps( _eps ), instance( _instance ), context( NULL ), x( _x ), z( _z ), dEdges( _dEdges)
 {
 	arc_weights.resize( 2 * instance.n_edges );
 
-	for (int i=0; i < dEdges.size(); i++) myvector.push_back(i);
+	// initialise for random edge selection in cec
+	for (u_int i=0; i < dEdges.size(); i++) myvector.push_back(i);
+
+	// setup data structure for maxflow alg
+	for (u_int i = 0; i < dEdges.size(); i++)
+	{
+		int v1 = dEdges[i].v1;
+		int v2 = dEdges[i].v2;
+
+		arcs.push_back( pair<u_int, u_int> (v1, v2));
+	}
+
+	weights = new double[dEdges.size()];
+
+	int n = instance.n_nodes;
+	int m = dEdges.size();
+
+	// init algorithm
+	Maxflow alg( n, m, arcs );
+	algorithm = &alg;
 }
 
 CutCallback::~CutCallback()
@@ -60,17 +83,10 @@ void CutCallback::connectionCuts()
 		int n = instance.n_nodes;
 		int m = dEdges.size();
 
-		list<pair<u_int, u_int> > arcs;
-
-		double* weights = new double[m];
+		double* weights = new double[dEdges.size()];
 
 		for (u_int i = 0; i < dEdges.size(); i++)
 		{
-			int v1 = dEdges[i].v1;
-			int v2 = dEdges[i].v2;
-
-			arcs.push_back( pair<u_int, u_int> (v1, v2));
-
 			weights[i] = xsol[i];
 		}
 
@@ -89,16 +105,20 @@ void CutCallback::connectionCuts()
 				algorithm.update( 0, i, weights );
 
 				int* cut = new int[n];
-				double f = algorithm.min_cut( 100.0, cut );
+				double f = algorithm.min_cut( 100, cut );
 
 				if (f < min_cut_cap) {
 					min_cut_cap = f;
 					min_cut = cut;
 					min_node = i;
+					
+					// already found?
+					if (min_cut_cap < 1) {
+						break;
+					}
 				}
 
 			}
-			
 		}
 
 		if (min_cut_cap < 1) {
@@ -107,15 +127,15 @@ void CutCallback::connectionCuts()
 
 			IloExpr expr(env);
 
-			//expr += 1;
-			//expr -= z[min_node];
+			expr += 1;
+			expr -= z[min_node];
 
 			for (u_int i = 0; i < dEdges.size(); i++)
 			{
 				int v1 = dEdges[i].v1;
 				int v2 = dEdges[i].v2;
 
-				if (min_cut[v1] == 1 && min_cut[v2] != 1)
+				if (min_cut[v1] != 2 && min_cut[v2] == 2)
 				{
 					expr += x[i];
 				}
@@ -129,7 +149,7 @@ void CutCallback::connectionCuts()
 		}
 
 	}
-	
+
 	try {
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
