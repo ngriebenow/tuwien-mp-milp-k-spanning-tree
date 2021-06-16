@@ -1,9 +1,17 @@
 #include "CutCallback.h"
 
+#include <algorithm>    // std::random_shuffle
+#include <vector>       // std::vector
+#include <cstdlib>
+
+std::vector<int> myvector;
+
 CutCallback::CutCallback( string _cut_type, double _eps, Instance &_instance, IloBoolVarArray &_x, IloBoolVarArray &_z, vector<Instance::Edge> &_dEdges ) :
 	cut_type( _cut_type ), eps( _eps ), instance( _instance ), context( NULL ), x( _x ), z( _z ), dEdges( _dEdges)
 {
 	arc_weights.resize( 2 * instance.n_edges );
+
+	for (int i=0; i < dEdges.size(); i++) myvector.push_back(i);
 }
 
 CutCallback::~CutCallback()
@@ -113,7 +121,7 @@ void CutCallback::connectionCuts()
 				}
 			}
 			
-			IloRange r = IloRange(env, 1, expr, m);
+			IloRange r = IloRange(env, 1, expr, std::numeric_limits<double>::infinity());
 			context->rejectCandidate( r );
 			expr.end();
 			r.end();
@@ -170,20 +178,23 @@ void CutCallback::cycleEliminationCuts()
 				arc_weights[i] = 1 - xsol[i];
 			}
 
+			
+  			std::random_shuffle ( myvector.begin(), myvector.end() );
+
 			// search for a cycle
 			for (u_int i = 0; i < dEdges.size(); i++)
 			{
-				int v1 = dEdges[i].v1;
-				int v2 = dEdges[i].v2;
+				int v1 = dEdges[myvector[i]].v1;
+				int v2 = dEdges[myvector[i]].v2;
 
 				SPResultT result = shortestPath(v2, v1);
-				
-				if (result.weight + arc_weights[i] < 1) {
+
+				if (result.weight + arc_weights[myvector[i]] < 1.0) {
 					// cycle detected!
 
 					IloExpr expr(env);
 
-					expr += x[i];
+					expr += x[myvector[i]];
 					for (auto const& j : result.path)
 					{
 						expr += x[j];
@@ -195,7 +206,7 @@ void CutCallback::cycleEliminationCuts()
 							context->rejectCandidate( r );
 							break;
 						case IloCplex::Callback::Context::Id::Relaxation:
-							//context->addUserCut( r, IloCplex::UseCutForce, IloFalse );
+							context->addUserCut( r, IloCplex::UseCutForce, IloFalse );
 							break;
 						default:
 							r.end();
@@ -203,6 +214,8 @@ void CutCallback::cycleEliminationCuts()
 					}
 					expr.end();
 					r.end();
+
+					break;
 				}
 			}
 		}
