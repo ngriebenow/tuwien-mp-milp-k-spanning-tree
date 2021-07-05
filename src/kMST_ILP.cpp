@@ -193,6 +193,18 @@ static void createConstraint_selectedEdgeCount_equals_kMinus1(IloEnv env, IloMod
 	exprNumEdges.end();
 }
 
+// Not both (i,j) and (j,i) can be selected at the same time
+static void createConstraint_oneEdge_notBothArcs(IloEnv env, IloModel model, IloBoolVarArray x,
+											vector<Instance::Edge> edges, u_int numEdges, u_int k)
+{
+	for (u_int m = 0; m < numEdges / 2; m++) {
+		IloExpr exprNumEdges(env);
+		exprNumEdges += x[m] + x[m + numEdges / 2];
+		model.add(exprNumEdges <= 1);
+		exprNumEdges.end();
+	}
+}
+
 // Artificial root node has exactly one selected outgoing edge
 static void createConstraint_rootNodeHasOneOutgoingEdge(IloEnv env, IloModel model, IloBoolVarArray x,
 														vector<Instance::Edge> edges, u_int numEdges)
@@ -310,9 +322,11 @@ void kMST_ILP::modelCommon()
 		// objective function
 		createObjectiveFunction(env, model, this->x, edges, numEdges);
 
-		
 		// restrict selected edge count to k - 1
 		createConstraint_selectedEdgeCount_equals_kMinus1(env, model, this->x, edges, numEdges, this->k);
+
+		// not both (i,j) and (j,i) can be selected at the same time
+		createConstraint_oneEdge_notBothArcs(env, model, this->x, edges, numEdges, this->k);
 
 		// Exactly one node is chosen as the tree root.
 		createConstraint_rootNodeHasOneOutgoingEdge(env, model, this->x, edges, numEdges);
